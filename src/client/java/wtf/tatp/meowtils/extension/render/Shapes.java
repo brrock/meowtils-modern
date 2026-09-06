@@ -5,10 +5,14 @@ import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.textures.FilterMode;
 public final class Shapes {
- private static boolean mask; private static float mx,my,mw,mh;
- public static void beginMask(){mask=true;}
- public static void useMask(){mask=false;Draw.g().enableScissor((int)mx,(int)(my-5),(int)Math.ceil(mx+mw),(int)Math.ceil(my+mh));}
- public static void endMask(){Draw.g().disableScissor();}
+ private static boolean mask,clipping; private static float mx,my,mw,mh;
+ public static void beginMask(){mask=true;clipping=false;}
+ public static void useMask(){
+  mask=false;
+  int x1=(int)mx,y1=(int)(my-5),x2=(int)Math.ceil(mx+mw),y2=(int)Math.ceil(my+mh);
+  if(x2>x1&&y2>y1){Draw.g().enableScissor(x1,y1,x2,y2);clipping=true;}
+ }
+ public static void endMask(){mask=false;if(clipping){clipping=false;Draw.g().disableScissor();}}
  public static void round(float x,float y,float w,float h,float r,int c){gradient(x,y,w,h,r,c,c,c,c);}
  public static void gradient(float x,float y,float w,float h,float r,int tl,int tr,int bl,int br){
   if(mask){mx=x;my=y;mw=w;mh=h;return;}

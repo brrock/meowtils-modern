@@ -19,7 +19,6 @@ import meowtils.tenacitygui.tenacity.render.Theme;
 import meowtils.tenacitygui.tenacity.util.HoveringUtil;
 import meowtils.tenacitygui.tenacity.util.Pair;
 import meowtils.tenacitygui.tenacity.util.TooltipObject;
-import wtf.tatp.meowtils.extension.render.GL11;
 import wtf.tatp.meowtils.gui.Module;
 import wtf.tatp.meowtils.module.meowtils.GUI;
 
@@ -178,10 +177,11 @@ public class ModuleRect implements Screen {
       double settingHeight = this.actualSettingCount * this.settingAnimation.getOutput();
       this.actualSettingCount = 0.0;
       this.typing = false;
-      if (this.expanded || !this.settingAnimation.isDone()) {
+      boolean clipSettings = !this.settingAnimation.isDone();
+      if (this.expanded || clipSettings) {
          float settingRectHeight = 16.0F;
          RenderUtil.drawRect2(this.x, this.y + this.height, this.width, (float)(settingHeight * settingRectHeight), settingRectColor.getRGB());
-         if (!this.settingAnimation.isDone()) {
+         if (clipSettings) {
             RenderUtil.scissorStart(this.x, this.y + this.height, this.width, settingHeight * settingRectHeight);
          }
 
@@ -204,7 +204,7 @@ public class ModuleRect implements Screen {
             this.actualSettingCount = this.actualSettingCount + settingComponent.countSize;
          }
 
-         if (!this.settingAnimation.isDone() || GL11.glIsEnabled(3089)) {
+         if (clipSettings) {
             RenderUtil.scissorEnd();
          }
       }

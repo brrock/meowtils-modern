@@ -53,11 +53,22 @@ public class RenderUtil {
       GL11.glPopMatrix();
    }
 
+   private static int scissorDepth;
+
    public static void scissorStart(double x, double y, double width, double height) {
-      wtf.tatp.meowtils.extension.render.Draw.g().enableScissor((int)x,(int)y,(int)Math.ceil(x+width),(int)Math.ceil(y+height));
+      int x1 = (int)x, y1 = (int)y, x2 = (int)Math.ceil(x + width), y2 = (int)Math.ceil(y + height);
+      if (x2 <= x1 || y2 <= y1) {
+         return;
+      }
+      wtf.tatp.meowtils.extension.render.Draw.g().enableScissor(x1, y1, x2, y2);
+      scissorDepth++;
    }
 
    public static void scissorEnd() {
+      if (scissorDepth <= 0) {
+         return;
+      }
+      scissorDepth--;
       wtf.tatp.meowtils.extension.render.Draw.g().disableScissor();
    }
 

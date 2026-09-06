@@ -26,6 +26,7 @@ import wtf.tatp.meowtils.gui.values.SliderValue;
 import wtf.tatp.meowtils.gui.values.ToggleValue;
 import wtf.tatp.meowtils.manager.session.Bedwars;
 import wtf.tatp.meowtils.manager.session.Duels;
+import wtf.tatp.meowtils.module.bedwars.BedESP;
 import wtf.tatp.meowtils.util.ColorUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -68,7 +69,7 @@ public class BedPlates extends Extension {
    @Config
    public int displayKey = 0;
    @Config
-   public boolean bedwarsOnly = true;
+   public boolean bedwarsOnly = false;
    private static final Set<String> INVALID_VARIANTS = new HashSet<>(
       Arrays.asList(
          "leaves",
@@ -183,6 +184,8 @@ public class BedPlates extends Extension {
                   this.searchForBeds();
                }
 
+               this.importKnownBeds();
+
                if (ticks % 3 == 0) {
                   this.findYLevels();
                }
@@ -216,12 +219,13 @@ public class BedPlates extends Extension {
       try {
          float[] point=new float[2];
          for(BedData bed:bedPositions.values()){
-            if(!bed.visible || bed.layers.isEmpty())continue;
+            if(!bed.visible)continue;
+            Map<String,Integer> layers=bed.layers==null||bed.layers.isEmpty()?Map.of("white_bed",1):bed.layers;
             Vec3 center=getBedCenter(bed.position1,bed.position2).add(0,yOffset,0);
             double distance=mc.gameRenderer.mainCamera().position().distanceTo(center);
             if(distance>renderDistance || !WorldOverlay.project(center.x,center.y,center.z,event.getGraphics().guiWidth(),event.getGraphics().guiHeight(),point))continue;
             float currentScale=autoScale?Math.max(.3f,scale*(1-(float)(distance/renderDistance))):scale;
-            renderPlate(new PlateRenderData(point[0],point[1],currentScale,bed.layers));
+            renderPlate(new PlateRenderData(point[0],point[1],currentScale,layers));
          }
       } finally { Draw.end(); }
    }
@@ -355,6 +359,38 @@ public class BedPlates extends Extension {
       }
    }
 
+   private void importKnownBeds() {
+      if (this.mc.player == null || this.mc.level == null) {
+         return;
+      }
+      for (BlockPos pos : BedESP.BEDS) {
+         if (!this.isBedAt(pos)) {
+            continue;
+         }
+         BlockPos pair = this.findBedPair(pos);
+         BlockPos[] normalized = this.normalizeBedPair(pos, pair == null ? pos : pair);
+         this.rememberBed(normalized[0], normalized[1]);
+      }
+   }
+
+   private void rememberBed(BlockPos first, BlockPos second) {
+      String bedKey = this.getBedKey(first, second);
+      this.bedPositions.remove(this.getBedKey(first, first));
+      this.bedPositions.remove(this.getBedKey(second, second));
+      if (this.bedPositions.containsKey(bedKey)) {
+         return;
+      }
+      BedPlates.BedData bedData = new BedPlates.BedData(first, second);
+      bedData.distance = this.mc.player.position().distanceTo(this.getBedCenter(first, second));
+      bedData.lastDistance = bedData.distance;
+      bedData.visible = true;
+      bedData.layers = this.getBedDefenseLayers(first, second);
+      bedData.lastCheck = System.currentTimeMillis();
+      this.bedPositions.put(bedKey, bedData);
+      this.yLevels.add(first.getY());
+      this.yLevels.add(second.getY());
+   }
+
    private void updateBeds() {
       if (!this.bedPositions.isEmpty()) {
          if (this.mc.player != null && this.mc.level != null) {
@@ -391,12 +427,10 @@ public class BedPlates extends Extension {
       if (this.mc.player != null && this.mc.level != null) {
          List<Player> players = new ArrayList<>(this.mc.level.players());
          Set<Integer> levels = new HashSet<>(this.yLevels);
-         if (levels.isEmpty()) {
-            for (Player player : players) {
-               int y = player.blockPosition().getY();
-               levels.add(y - 1);
-               levels.add(y);
-               levels.add(y + 1);
+         for (Player player : players) {
+            int y = player.blockPosition().getY();
+            for (int dy = -24; dy <= 4; dy++) {
+               levels.add(y + dy);
             }
          }
 
@@ -421,20 +455,7 @@ public class BedPlates extends Extension {
                               BlockPos pair = this.findBedPair(pos);
                               if (pair != null) {
                                  BlockPos[] normalized = this.normalizeBedPair(pos, pair);
-                                 String bedKey = this.getBedKey(normalized[0], normalized[1]);
-                                 this.bedPositions.remove(this.getBedKey(normalized[0], normalized[0]));
-                                 this.bedPositions.remove(this.getBedKey(normalized[1], normalized[1]));
-                                 if (!this.bedPositions.containsKey(bedKey)) {
-                                    BedPlates.BedData bedData = new BedPlates.BedData(normalized[0], normalized[1]);
-                                    bedData.distance = this.mc.player.position().distanceTo(this.getBedCenter(normalized[0], normalized[1]));
-                                    bedData.lastDistance = bedData.distance;
-                                    bedData.visible = true;
-                                    bedData.layers = this.getBedDefenseLayers(normalized[0], normalized[1]);
-                                    bedData.lastCheck = System.currentTimeMillis();
-                                    this.bedPositions.put(bedKey, bedData);
-                                    this.yLevels.add(normalized[0].getY());
-                                    this.yLevels.add(normalized[1].getY());
-                                 }
+                                 this.rememberBed(normalized[0], normalized[1]);
                               }
                            }
                         }
