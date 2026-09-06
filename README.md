@@ -1,7 +1,5 @@
 # Meowtils Modern
 
-<img width="1905" height="1043" alt="image" src="https://github.com/user-attachments/assets/44f371bc-3a1b-495b-9f84-d7d963c620bb" />
-
 Client-side [Fabric](https://fabricmc.net/) port of Meowtils 2.0.1 for **Minecraft 26.2**.
 [Docs](https://brrock.github.io/meowtils-modern/) skidded ofc
 ## Requirements
