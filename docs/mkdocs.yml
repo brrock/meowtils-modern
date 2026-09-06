@@ -1,0 +1,279 @@
+site_name: Meowtils Documentation
+site_url: https://brrock.github.io/meowtils-modern/
+site_description: Documentation for Meowtils on Minecraft 26.2 / Fabric.
+site_author: brrock
+
+theme:
+  name: material
+  font:
+    text: Roboto
+    code: Roboto Mono
+  logo: assets/meowtils.png
+  favicon: assets/meowtils.png
+  features:
+    - content.code.copy
+    - navigation.footer
+  
+  icon:
+    admonition:
+      note: fontawesome/solid/note-sticky
+      abstract: fontawesome/solid/book
+      info: fontawesome/solid/circle-info
+      tip: fontawesome/solid/bullhorn
+      success: fontawesome/solid/check
+      question: fontawesome/solid/circle-question
+      warning: fontawesome/solid/triangle-exclamation
+      failure: fontawesome/solid/bomb
+      danger: fontawesome/solid/skull
+      bug: fontawesome/solid/robot
+      example: fontawesome/solid/flask
+      quote: fontawesome/solid/quote-left
+    tag:
+      blatant: fontawesome/solid/skull
+      legit: fontawesome/solid/check
+      safe: fontawesome/solid/book
+
+  features:
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - content.code.copy
+    - navigation.indexes
+    - navigation.path
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+
+  palette:
+    - scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+
+    - scheme: default
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode
+
+extra_css:
+  - stylesheets/color.css
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.details
+
+plugins:
+  - tags
+  - glightbox
+  - search
+
+repo_url: https://github.com/brrock/meowtils-modern
+repo_name: brrock/meowtils-modern
+
+extra:
+  generator: false
+  tags:
+    Blatant: blatant
+    Legit: legit
+    Safe: safe
+  og_image: assets/meowtils.png
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/brrock/meowtils-modern
+      name: Meowtils Repository
+
+nav:
+  - Introduction: index.md
+  - Guides:
+      - Installation: guides/installation.md
+      - Basic Usage: guides/basic-usage.md
+      - Server Safety: guides/server-safety.md
+  - Modules:
+      - Meowtils:
+          - GUI: modules/meowtils/gui.md
+          - Icons: modules/meowtils/icons.md
+          - Notifications: modules/meowtils/notifications.md
+          - Settings: modules/meowtils/settings.md
+          - Teams: modules/meowtils/teams.md
+      - Hypixel:
+          - AccountHider: modules/hypixel/accounthider.md
+          - AutoChannel: modules/hypixel/autochannel.md
+          - AutoGG: modules/hypixel/autogg.md
+          - AutoTip: modules/hypixel/autotip.md
+          - AutoWho: modules/hypixel/autowho.md
+          - Denicker: modules/hypixel/denicker.md
+          - MurdererFinder: modules/hypixel/murdererfinder.md
+          - NickBot: modules/hypixel/nickbot.md
+          - PartyNotifier: modules/hypixel/partynotifier.md
+          - Requeue: modules/hypixel/requeue.md
+          - SessionStats: modules/hypixel/sessionstats.md
+          - Stats: modules/hypixel/stats.md
+      - Skywars:
+          - CooldownHUD: modules/skywars/cooldownhud.md
+          - EquipAlerts: modules/skywars/equipalerts.md
+          - ItemHighlight: modules/skywars/itemhighlight.md
+          - MiningAlerts: modules/skywars/miningalerts.md
+          - NoArmorDye: modules/skywars/noarmordye.md
+          - PearlDetector: modules/skywars/pearldetector.md
+          - SkywarsAlerts: modules/skywars/skywarsalerts.md
+          - StrengthESP: modules/skywars/strengthesp.md
+      - Bedwars:
+          - AntiMisplace: modules/bedwars/antimisplace.md
+          - ArmorAlerts: modules/bedwars/armoralerts.md
+          - BedESP: modules/bedwars/bedesp.md
+          - BedTracker: modules/bedwars/bedtracker.md
+          - ConsumeAlerts: modules/bedwars/consumealerts.md
+          - EventTimers: modules/bedwars/eventtimers.md
+          - HeightOverlay: modules/bedwars/heightoverlay.md
+          - ItemAlerts: modules/bedwars/itemalerts.md
+          - PickupAlerts: modules/bedwars/pickupalerts.md
+          - ResourceTracker: modules/bedwars/resourcetracker.md
+          - ShopHelper: modules/bedwars/shophelper.md
+          - TrapNotifier: modules/bedwars/trapnotifier.md
+          - UpgradeAlerts: modules/bedwars/upgradealerts.md
+          - UpgradeHUD: modules/bedwars/upgradehud.md
+      - Render:
+          - Animations: modules/render/animations.md
+          - Anti-Invis: modules/render/antiinvis.md
+          - BlockCount: modules/render/blockcount.md
+          - BreakProgress: modules/render/breakprogress.md
+          - Cape: modules/render/cape.md
+          - ChestESP: modules/render/chestesp.md
+          - ConsumeTimer: modules/render/consumetimer.md
+          - DamageTags: modules/render/damagetags.md
+          - HealthDisplay: modules/render/healthdisplay.md
+          - HealthESP: modules/render/healthesp.md
+          - Indicators: modules/render/indicators.md
+          - InstantHurt: modules/render/instanthurt.md
+          - ItemESP: modules/render/itemesp.md
+          - ItemScale: modules/render/itemscale.md
+          - PingHUD: modules/render/pinghud.md
+          - PotionHUD: modules/render/potionhud.md
+          - ShinyPots: modules/render/shinypots.md
+          - TimeChanger: modules/render/timechanger.md
+          - Trajectories: modules/render/trajectories.md
+      - Antisnipe:
+          - AntiCheat: modules/antisnipe/anticheat.md
+          - AutoBlacklist: modules/antisnipe/autoblacklist.md
+          - AutoSafelist: modules/antisnipe/autosafelist.md
+          - PartyDetector: modules/antisnipe/partydetector.md
+          - SniperWarning: modules/antisnipe/sniperwarning.md
+      - Utility:
+          - ActionSounds: modules/utility/actionsounds.md
+          - AntiObfuscate: modules/utility/antiobfuscate.md
+          - AutoText: modules/utility/autotext.md
+          - ChatFilter: modules/utility/chatfilter.md
+          - FlagDetector: modules/utility/flagdetector.md
+          - Freelook: modules/utility/freelook.md
+          - HotbarLock: modules/utility/hotbarlock.md
+          - LatencyAlerts: modules/utility/latencyalerts.md
+          - NoParticles: modules/utility/noparticles.md
+          - NoTitles: modules/utility/notitles.md
+          - NullMove: modules/utility/nullmove.md
+          - Sprint: modules/utility/sprint.md
+          - ViewClip: modules/utility/viewclip.md
+      - Advanced:
+          - AutoChest: modules/advanced/autochest.md
+          - AutoStairs: modules/advanced/autostairs.md
+          - AutoSwap: modules/advanced/autoswap.md
+          - DelayRemover: modules/advanced/delayremover.md
+          - GhostHand: modules/advanced/ghosthand.md
+  - Other Features:
+      - Auto Updates: other/auto-updates.md
+      - Commands: other/commands.md
+      - Lists:
+          - Blacklist: other/lists/blacklist.md
+          - Safelist: other/lists/safelist.md
+          - Friends: other/lists/friends.md
+  - Extensions:
+      - Introduction: extensions/introduction.md
+      - How To Setup: extensions/setup.md
+      - Limitations: extensions/limitations.md
+      - Entrypoint: extensions/entrypoint.md
+      - Events:
+          - extensions/events/index.md
+          - Client Tick: extensions/events/clienttickevent.md
+          - Render Tick: extensions/events/rendertickevent.md
+          - Chat Received: extensions/events/chatreceivedevent.md
+          - Key Press: extensions/events/keypressevent.md
+          - Mouse Input: extensions/events/mouseinputevent.md
+          - Gui Open: extensions/events/guiopenevent.md
+          - Slot Click: extensions/events/slotclickevent.md
+          - World Event: extensions/events/worldevent.md
+          - Player Interact: extensions/events/playerinteractevent.md
+          - Attack Entity: extensions/events/attackentityevent.md
+          - Entity Join World: extensions/events/entityjoinworldevent.md
+          - Receive Packet: extensions/events/receivepacketevent.md
+          - Send Packet: extensions/events/sendpacketevent.md
+          - Render Game Overlay: extensions/events/rendergameoverlayevent.md
+          - Render World Last: extensions/events/renderworldlastevent.md
+          - Render String: extensions/events/renderstringevent.md
+          - Render Player: extensions/events/renderplayerevent.md
+          - Movement Input Update: extensions/events/movementinputupdateevent.md
+      - Basic:
+          - Send Message: extensions/basic/send-message.md
+          - Notification: extensions/basic/notification.md
+          - Commands: extensions/basic/commands.md
+          - Prefix: extensions/basic/prefix.md
+      - Render:
+          - HUD Text: extensions/render/hud-text.md
+          - Entity ESP: extensions/render/entity-esp.md
+          #- Block ESP: extensions/render/block-esp.md
+          - Slot Background: extensions/render/slot-background.md
+          - Name Icons: extensions/render/name-icons.md
+          - Item Icons: extensions/render/item-icons.md
+      - Module:
+        - Setup: extensions/gui/module.md
+        - Components:
+            - Toggle: extensions/gui/components/togglecomponent.md
+            - Check: extensions/gui/components/checkcomponent.md
+            - Mode: extensions/gui/components/modecomponent.md
+            - Slider: extensions/gui/components/slidercomponent.md
+            - Text: extensions/gui/components/textcomponent.md
+            - Color: extensions/gui/components/colorcomponent.md
+            - Saturation: extensions/gui/components/saturationcomponent.md
+            - Brightness: extensions/gui/components/brightnesscomponent.md
+            - Opacity: extensions/gui/components/opacitycomponent.md
+            - Bind: extensions/gui/components/bindcomponent.md
+            - Button: extensions/gui/components/buttoncomponent.md
+            - Expand: extensions/gui/components/expandcomponent.md
+        - Overrides:
+            - Enable: extensions/gui/overrides/on-enable.md
+            - Disable: extensions/gui/overrides/on-disable.md
+            - Reset: extensions/gui/overrides/on-reset.md
+            - Hud Editor: extensions/gui/overrides/hud-editor.md
+        - Extras: extensions/gui/extras.md
+      - Config:
+          - Saving Values: extensions/config/saving-values.md
+          - Reading Values: extensions/config/reading-values.md
+          - Modifying Values: extensions/config/modifying-values.md
+      - Util:
+          - Session: extensions/util/session.md
+          - Team: extensions/util/team.md
+          - Color: extensions/util/color.md
+          - Delayed Task: extensions/util/delayed-task.md
+          - Click: extensions/util/click.md
+          - Sound: extensions/util/sound.md
+          - Scoreboard: extensions/util/scoreboard.md
+          - Extra: extensions/util/extra.md
+  - Support:
+      - support/index.md
+      - Request Help: support/request-help.md
+      - Report Bug: support/report-bug.md
+      - Suggest Feature: support/suggest-feature.md
+      - Extra:
+          #- Credits: support/extra/credits.md
+          - License: support/extra/license.md
+      - Safety: support/safety.md

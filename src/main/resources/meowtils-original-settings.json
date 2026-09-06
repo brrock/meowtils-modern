@@ -1,0 +1,5830 @@
+[
+  {
+    "class": "wtf.tatp.meowtils.module.meowtils.GUI",
+    "sourceHash": "6d7b0b879738358acb26ec229e25204ca9e60d9840f21b8ca58905322edadd98",
+    "name": "GUI",
+    "category": "Meowtils",
+    "alwaysEnabled": true,
+    "tag": null,
+    "tooltip": "GUI related settings.\n§bMiddle click §f- Bind any module (including this for GUI bind)\n§bScroll wheel §f- Scroll categories/modules if they are too long\n§bFeatures §f- Restrict what type of modules to show",
+    "defaults": {
+      "enabled": true,
+      "key": 54,
+      "scale": "Auto",
+      "tooltips": true,
+      "blurGui": true,
+      "red": 189,
+      "green": 140,
+      "blue": 255,
+      "debugMode": false,
+      "featureMode": "Unrestricted",
+      "scrollSpeed": 10,
+      "firstStartup": true
+    },
+    "values": [
+      {
+        "type": "Color",
+        "name": "GUI color",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Saturation",
+        "name": "Saturation",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Brightness",
+        "name": "Brightness",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Slider",
+        "name": "Scroll speed",
+        "min": 1,
+        "max": 25,
+        "increment": 1,
+        "unit": null,
+        "config": "scrollSpeed",
+        "default": 10
+      },
+      {
+        "type": "Mode",
+        "name": "GUI Scale",
+        "modes": [
+          "Tiny",
+          "Small",
+          "Normal",
+          "Large",
+          "Huge",
+          "Auto"
+        ],
+        "config": "scale",
+        "default": "Auto"
+      },
+      {
+        "type": "Mode",
+        "name": "Features",
+        "modes": [
+          "Unrestricted",
+          "Safe",
+          "Legit"
+        ],
+        "config": "featureMode",
+        "default": "Unrestricted"
+      },
+      {
+        "type": "Toggle",
+        "name": "Show tooltips",
+        "config": "tooltips",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Blur background",
+        "config": "blurGui",
+        "default": true
+      },
+      {
+        "type": "Bind",
+        "name": "Bind",
+        "config": "key",
+        "default": 54
+      },
+      {
+        "type": "Button",
+        "name": "Reset GUI color",
+        "textScale": 5,
+        "action": "() -> {\n            this.red = 189;\n            this.green = 140;\n            this.blue = BLUE_DEFAULT;\n            wtf.tatp.meowtils.config.ConfigManager.save();\n            if (wtf.tatp.meowtils.module.meowtils.Notifications.getMode() != wtf.tatp.meowtils.module.meowtils.Notifications.Mode.CHAT) {\n                wtf.tatp.meowtils.manager.NotificationManager.show(\"GUI\", \"Reset GUI colors!\", wtf.tatp.meowtils.manager.NotificationManager.Type.INFO, 2000L);\n            }\n            if (wtf.tatp.meowtils.module.meowtils.Notifications.getMode() != wtf.tatp.meowtils.module.meowtils.Notifications.Mode.NOTIFICATION) {\n                wtf.tatp.meowtils.Meowtils.addMessage(\"Reset GUI colors!\");\n            }\n        }"
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.antisnipe.AntiCheat",
+    "sourceHash": "e848dec8940ac37849cc1aa7a154daf88058183063fa43572e4293c9591c961c",
+    "name": "AntiCheat",
+    "category": "Antisnipe",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Detects suspicious behaviour of players around you. May not be 100% accurate.\n§d/anticheat §f- Set anticheat message colors",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "violationLevel": 0,
+      "flagSound": true,
+      "wdrButton": true,
+      "autoBlock": true,
+      "noSlow": true,
+      "killaura": true,
+      "legitScaffold": true,
+      "componentColor": "RED",
+      "buttonColor": "AQUA",
+      "bracketColor": "GRAY"
+    },
+    "values": [
+      {
+        "type": "Slider",
+        "name": "Violation level",
+        "min": 0,
+        "max": 10,
+        "increment": 1,
+        "unit": null,
+        "config": "violationLevel",
+        "default": 0
+      },
+      {
+        "type": "Toggle",
+        "name": "Flag sound",
+        "config": "flagSound",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "WDR Button",
+        "config": "wdrButton",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "AutoBlock",
+        "config": "autoBlock",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "NoSlow",
+        "config": "noSlow",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Killaura",
+        "config": "killaura",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Legit Scaffold",
+        "config": "legitScaffold",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.utility.AntiObfuscate",
+    "sourceHash": "aa6cc038c0c9c821590d109372d637b1a815104383cd5cb54a73c60c00bbc0c1",
+    "name": "AntiObfuscate",
+    "category": "Utility",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Deobfuscates text.",
+    "defaults": {
+      "enabled": false,
+      "key": 0
+    },
+    "values": []
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.bedwars.ArmorAlerts",
+    "sourceHash": "606353fcd36742265f8f6f24e30921175880b9c54253be2d1c9ea626371754ca",
+    "name": "ArmorAlerts",
+    "category": "Bedwars",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Alerts you when players buy an armor upgrade.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "pingSound": true,
+      "chain": true,
+      "iron": true,
+      "diamond": true,
+      "alertType": "Chat"
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Alert",
+        "modes": [
+          "Chat",
+          "Notification",
+          "All"
+        ],
+        "config": "alertType",
+        "default": "Chat"
+      },
+      {
+        "type": "Toggle",
+        "name": "Ping sound",
+        "config": "pingSound",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§7Chainmail Armor",
+        "config": "chain",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Iron Armor",
+        "config": "iron",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§bDiamond Armor",
+        "config": "diamond",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.hypixel.AutoChannel",
+    "sourceHash": "7bca03d24e2b32cf0b8fee08783cfbb28f201ca0b9954e5a8a0a70074f52dd64",
+    "name": "AutoChannel",
+    "category": "Hypixel",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Automatically switches chat channel when joining/leaving a party.",
+    "defaults": {
+      "enabled": false,
+      "key": 0
+    },
+    "values": []
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.antisnipe.AutoSafelist",
+    "sourceHash": "a835ddcea350801a32f3a2bbe31ac47541d878a196d81172206ddd0a64b1c3fa",
+    "name": "AutoSafelist",
+    "category": "Antisnipe",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Automatically safelists players that take a final death.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "autoSafelistMessage": true
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Safelist feedback",
+        "config": "autoSafelistMessage",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.hypixel.AutoTip",
+    "sourceHash": "deb99275103e7566ea62c57455464c99cac463fc5c156a7fa5bc6152be58b2cc",
+    "name": "AutoTip",
+    "category": "Hypixel",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Automatically runs /tipall every x minutes.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "hide": true,
+      "delay": 5
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Hide messages",
+        "config": "hide",
+        "default": true
+      },
+      {
+        "type": "Slider",
+        "name": "Delay",
+        "min": 1,
+        "max": 10,
+        "increment": 1,
+        "unit": "min",
+        "config": "delay",
+        "default": 5
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.hypixel.AutoWho",
+    "sourceHash": "9f36757148ee1a18aca39db05bb372445cfcd2f962b738f39c6bdcdfb64880d9",
+    "name": "AutoWho",
+    "category": "Hypixel",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Automatically runs /who after a game started. May be required by some modules.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "hide": false
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Hide message",
+        "config": "hide",
+        "default": false
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.BreakProgress",
+    "sourceHash": "e8bb2d54e4bb349b97ec148487577cc65f01656d9a598bc850075a4563e3c668",
+    "name": "BreakProgress",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Displays a countdown until block is broken.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "mode": "Percentage",
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "scale": 0.65,
+      "opacity": 100,
+      "dynamicColor": false
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Mode",
+        "modes": [
+          "Percentage",
+          "Time"
+        ],
+        "config": "mode",
+        "default": "Percentage"
+      },
+      {
+        "type": "Color",
+        "name": "Text color",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Saturation",
+        "name": "Saturation",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Brightness",
+        "name": "Brightness",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Opacity",
+        "name": "Text opacity",
+        "config": "opacity",
+        "default": 100
+      },
+      {
+        "type": "Slider",
+        "name": "Scale",
+        "min": 0.5,
+        "max": 1.5,
+        "increment": 0.05,
+        "unit": null,
+        "config": "scale",
+        "default": 0.65
+      },
+      {
+        "type": "Toggle",
+        "name": "Dynamic color",
+        "config": "dynamicColor",
+        "default": false
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.Cape",
+    "sourceHash": "6783d3d201df359c8a11b7e46caad0ed1f9874be78aa721516a4669a517a0ff0",
+    "name": "Cape",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Renders a cape on players. You may import your own cape file.\n§d/capefolder §f- Open cape folder\n§bText §f- Input the custom cape file name",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "selectedCape": "2011",
+      "customCapeName": "",
+      "renderOnAll": false
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Cape",
+        "modes": [
+          "2011",
+          "2012",
+          "2013",
+          "2015",
+          "2016",
+          "Experience",
+          "Founder",
+          "Cobalt",
+          "Astolfo",
+          "Moon",
+          "Myau",
+          "Raven",
+          "Custom"
+        ],
+        "config": "selectedCape",
+        "default": "2011"
+      },
+      {
+        "type": "Text",
+        "name": "Cape",
+        "config": "customCapeName",
+        "description": "File name",
+        "default": ""
+      },
+      {
+        "type": "Toggle",
+        "name": "Render for all",
+        "config": "renderOnAll",
+        "default": false
+      },
+      {
+        "type": "Button",
+        "name": "Cape folder",
+        "textScale": 5,
+        "action": "() -> {\n            wtf.tatp.meowtils.util.Util.openFolder(wtf.tatp.meowtils.Meowtils.CUSTOM_CAPE_DIR, \"cape\");\n        }"
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.ConsumeTimer",
+    "sourceHash": "3f14a3839f9aa75e66a2cfbddfae4798f84eb52acc03c739435abff4a379acb6",
+    "name": "ConsumeTimer",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Displays a countdown of how much time left to consume an item.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "scale": 0.65,
+      "mode": "Seconds",
+      "dynamicColor": false,
+      "posX": 1,
+      "posY": 1
+    },
+    "values": [
+      {
+        "type": "Color",
+        "name": "Text color",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Saturation",
+        "name": "Saturation",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Brightness",
+        "name": "Brightness",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Slider",
+        "name": "Scale",
+        "min": 0.5,
+        "max": 1.5,
+        "increment": 0.05,
+        "unit": null,
+        "config": "scale",
+        "default": 0.65
+      },
+      {
+        "type": "Mode",
+        "name": "Mode",
+        "modes": [
+          "Ticks",
+          "Seconds"
+        ],
+        "config": "mode",
+        "default": "Seconds"
+      },
+      {
+        "type": "Toggle",
+        "name": "Dynamic color",
+        "config": "dynamicColor",
+        "default": false
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.hypixel.Denicker",
+    "sourceHash": "3f1bf3ff6abc60581592eac33fa795d1e6d9cc493fca8c07712ca797fa4beb2c",
+    "name": "Denicker",
+    "category": "Hypixel",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Tells you the name of a nicked player if they are using their real skin.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "message": true,
+      "icon": true,
+      "iconMode": "Normal",
+      "iconColor": "§5Dark Purple",
+      "ignoreTeam": false
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Ignore teammates",
+        "config": "ignoreTeam",
+        "default": false
+      },
+      {
+        "type": "Toggle",
+        "name": "Nick message",
+        "config": "message",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Nick tag",
+        "config": "icon",
+        "default": true
+      },
+      {
+        "type": "Mode",
+        "name": "Tag",
+        "modes": [
+          "Normal",
+          "Asterisk",
+          "Text"
+        ],
+        "config": "iconMode",
+        "default": "Normal"
+      },
+      {
+        "type": "Mode",
+        "name": "Color",
+        "modes": [
+          "§5Dark Purple",
+          "§4Dark Red",
+          "§1Dark Blue",
+          "§3Dark Aqua"
+        ],
+        "config": "iconColor",
+        "default": "§5Dark Purple"
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.HealthDisplay",
+    "sourceHash": "1e846d9bb82f49172e02fa8af107862a0660a59dce23d44502e1e80189b0e2ff",
+    "name": "HealthDisplay",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Displays various health information.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "showOwn": true,
+      "healthScale": 0.65,
+      "showBow": true,
+      "bowScale": 1,
+      "hideSuffix": false,
+      "healthPosX": 310,
+      "healthPosY": 190,
+      "bowPosX": 310,
+      "bowPosY": 50
+    },
+    "values": [
+      {
+        "type": "Expand",
+        "name": "Show own health",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "showOwn",
+            "default": true
+          },
+          {
+            "type": "Slider",
+            "name": "Scale",
+            "min": 0.5,
+            "max": 1.5,
+            "increment": 0.05,
+            "unit": null,
+            "config": "healthScale",
+            "default": 0.65
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "Show bow damage",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "showBow",
+            "default": true
+          },
+          {
+            "type": "Slider",
+            "name": "Scale",
+            "min": 0.5,
+            "max": 5,
+            "increment": 0.05,
+            "unit": null,
+            "config": "bowScale",
+            "default": 1
+          },
+          {
+            "type": "Check",
+            "name": "Hide suffix",
+            "config": "hideSuffix",
+            "default": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.bedwars.ItemAlerts",
+    "sourceHash": "4480b66132ac4c0123b349dbc677681b767f413fc89e21173637385bfadf16c1",
+    "name": "ItemAlerts",
+    "category": "Bedwars",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Alerts in chat when a player holds a specific item.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "sound": "None",
+      "distanceMode": "Important",
+      "alertType": "Chat",
+      "cooldown": 10,
+      "ironSword": true,
+      "diamondSword": true,
+      "bows": true,
+      "knockbackStick": true,
+      "goldenApple": true,
+      "waterBucket": true,
+      "goldenPickaxe": true,
+      "diamondPickaxe": true,
+      "fireball": true,
+      "tnt": true,
+      "milk": true,
+      "jump": true,
+      "speed": true,
+      "invis": true,
+      "pearl": true,
+      "obsidian": true,
+      "egg": true,
+      "golem": true,
+      "bedbug": true,
+      "tower": true,
+      "rotation": true
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Alert",
+        "modes": [
+          "Chat",
+          "Notification",
+          "All"
+        ],
+        "config": "alertType",
+        "default": "Chat"
+      },
+      {
+        "type": "Mode",
+        "name": "Ping sound",
+        "modes": [
+          "All",
+          "Important",
+          "None"
+        ],
+        "config": "sound",
+        "default": "None"
+      },
+      {
+        "type": "Mode",
+        "name": "Distance",
+        "modes": [
+          "All",
+          "Important",
+          "None"
+        ],
+        "config": "distanceMode",
+        "default": "Important"
+      },
+      {
+        "type": "Slider",
+        "name": "Cooldown",
+        "min": 1,
+        "max": 30,
+        "increment": 1,
+        "unit": "s",
+        "config": "cooldown",
+        "default": 10
+      },
+      {
+        "type": "Expand",
+        "name": "Items",
+        "children": [
+          {
+            "type": "Check",
+            "name": "Iron Sword",
+            "config": "ironSword",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§bDiamond Sword",
+            "config": "diamondSword",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§6Bows",
+            "config": "bows",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§eKnockback Stick",
+            "config": "knockbackStick",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§6Golden Apple",
+            "config": "goldenApple",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§9Water bucket",
+            "config": "waterBucket",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§6Golden Pickaxe",
+            "config": "goldenPickaxe",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§bDiamond Pickaxe",
+            "config": "diamondPickaxe",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§cFireball",
+            "config": "fireball",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§4T§fN§4T",
+            "config": "tnt",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§3Pop-Up Tower",
+            "config": "tower",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Milk",
+            "config": "milk",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§aJump Potion",
+            "config": "jump",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§eSpeed Potion",
+            "config": "speed",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§bInvis Potion",
+            "config": "invis",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§5Ender Pearl",
+            "config": "pearl",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§8Obsidian",
+            "config": "obsidian",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§3Bridge Egg",
+            "config": "egg",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Iron Golem",
+            "config": "golem",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§7BedBug",
+            "config": "bedbug",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§dRotation Items",
+            "config": "rotation",
+            "default": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.skywars.ItemHighlight",
+    "sourceHash": "7d9e2cb63a15ecf754178b1c8987ecdea0cb6e404cd6b21e8841cf608c09514f",
+    "name": "ItemHighlight",
+    "category": "Skywars",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Highlights important items in your inventory.\n§d/itemsl §d<item> §f- safelist\n§d/itemusl §d<item> §f- unsafelist\n§d/itembl §d<item> §f- blacklist\n§d/itemubl §d<item> §f- unblacklist",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "opacity": 50,
+      "blacklistColor": "§4Dark Red",
+      "safelistColor": "§aGreen",
+      "bestColor": "§dLight Purple",
+      "showBlacklisted": true,
+      "showSafelisted": true,
+      "showBest": true,
+      "swords": true,
+      "armor": true,
+      "healing": true,
+      "bows": true,
+      "tools": true,
+      "preventDropSafelisted": false,
+      "preventDropBest": true
+    },
+    "values": [
+      {
+        "type": "Opacity",
+        "name": "Opacity",
+        "config": "opacity",
+        "default": 50
+      },
+      {
+        "type": "Mode",
+        "name": "Blacklist",
+        "modes": [
+          "§4Dark Red",
+          "§cRed",
+          "§eYellow",
+          "§1Dark Blue"
+        ],
+        "config": "blacklistColor",
+        "default": "§4Dark Red"
+      },
+      {
+        "type": "Mode",
+        "name": "Safelist",
+        "modes": [
+          "§aGreen",
+          "§2Dark Green",
+          "§9Blue",
+          "§3Dark Aqua"
+        ],
+        "config": "safelistColor",
+        "default": "§aGreen"
+      },
+      {
+        "type": "Mode",
+        "name": "Best",
+        "modes": [
+          "§dLight Purple",
+          "§5Dark Purple",
+          "§6Gold",
+          "§bAqua"
+        ],
+        "config": "bestColor",
+        "default": "§dLight Purple"
+      },
+      {
+        "type": "Toggle",
+        "name": "Prevent drop for best",
+        "config": "preventDropBest",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Prevent drop for safelisted",
+        "config": "preventDropSafelisted",
+        "default": false
+      },
+      {
+        "type": "Toggle",
+        "name": "Render §4Blacklisted §fItems",
+        "config": "showBlacklisted",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Render §aSafelisted §fItems",
+        "config": "showSafelisted",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Render §dBest §fItems",
+        "config": "showBest",
+        "default": true
+      },
+      {
+        "type": "Expand",
+        "name": "Items",
+        "children": [
+          {
+            "type": "Check",
+            "name": "§bSwords",
+            "config": "swords",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§3Armor",
+            "config": "armor",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§dHealing",
+            "config": "healing",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§6Bows",
+            "config": "bows",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§2Tools",
+            "config": "tools",
+            "default": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.utility.LatencyAlerts",
+    "sourceHash": "fa6022b16f912865d06ca4257c8e3c7e887716264b12c5f19926b2df195676c4",
+    "name": "LatencyAlerts",
+    "category": "Utility",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Warns you in chat when you lose connection to the server. \n May not work on all servers.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "threshold": 500,
+      "ignoreLimbo": true,
+      "alertType": "Chat"
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Alert",
+        "modes": [
+          "Chat",
+          "Notification",
+          "All"
+        ],
+        "config": "alertType",
+        "default": "Chat"
+      },
+      {
+        "type": "Slider",
+        "name": "Latency threshold",
+        "min": 0,
+        "max": 3000,
+        "increment": 50,
+        "unit": "ms",
+        "config": "threshold",
+        "default": 500
+      },
+      {
+        "type": "Toggle",
+        "name": "Ignore limbo",
+        "config": "ignoreLimbo",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.meowtils.Notifications",
+    "sourceHash": "38000be5e7c95da1affeaef7683eef5253d2f0b80356e4afa8bed7a6e1c3e0c5",
+    "name": "Notifications",
+    "category": "Meowtils",
+    "alwaysEnabled": true,
+    "tag": null,
+    "tooltip": "Select which notifications to send in chat.\n§bPrefer §f- Select whether to prefer notifications, chat messages, or both.",
+    "defaults": {
+      "enabled": true,
+      "key": 0,
+      "toggle": true,
+      "challengeWarning": true,
+      "shoutCooldown": true,
+      "modWarnings": true,
+      "startNotifications": true,
+      "notificationMode": "Chat",
+      "blacklistedWarning": true,
+      "showBannedPlayer": true
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Prefer",
+        "modes": [
+          "Notification",
+          "Chat",
+          "Both"
+        ],
+        "config": "notificationMode",
+        "default": "Chat"
+      },
+      {
+        "type": "Toggle",
+        "name": "Module toggled",
+        "config": "toggle",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Start notifications",
+        "config": "startNotifications",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Mod conflict warnings",
+        "config": "modWarnings",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Challenge warning",
+        "config": "challengeWarning",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Shout cooldown",
+        "config": "shoutCooldown",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Blacklisted warning",
+        "config": "blacklistedWarning",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Show banned player",
+        "config": "showBannedPlayer",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.utility.NoTitles",
+    "sourceHash": "71506f3328f02c54d84d3662939c47ac915abd55fb3a3abe09b3471eac748f6a",
+    "name": "NoTitles",
+    "category": "Utility",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Disables titles",
+    "defaults": {
+      "enabled": false,
+      "key": 0
+    },
+    "values": []
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.utility.NullMove",
+    "sourceHash": "f218e990abff135241fcc705705bd143309dafc4a6ac6ef812b3e523a4823e2f",
+    "name": "NullMove",
+    "category": "Utility",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Does not prevent movement if several movement keys are held at once.",
+    "defaults": {
+      "enabled": false,
+      "key": 0
+    },
+    "values": []
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.bedwars.ConsumeAlerts",
+    "sourceHash": "8b9b9cf121fab516134067b7a5f603797667857d2fc7126fa119761e61b0186e",
+    "name": "ConsumeAlerts",
+    "category": "Bedwars",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Alerts you when players consume a specific item.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "distance": 0,
+      "sound": true,
+      "showDistance": true,
+      "goldenApple": true,
+      "milk": true,
+      "speed": true,
+      "jump": true,
+      "invis": true,
+      "alertType": "Chat"
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Alert",
+        "modes": [
+          "Chat",
+          "Notification",
+          "All"
+        ],
+        "config": "alertType",
+        "default": "Chat"
+      },
+      {
+        "type": "Slider",
+        "name": "Max distance",
+        "min": 0,
+        "max": 250,
+        "increment": 5,
+        "unit": "m",
+        "config": "distance",
+        "default": 0
+      },
+      {
+        "type": "Toggle",
+        "name": "Ping sound",
+        "config": "sound",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Show distance",
+        "config": "showDistance",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§6Golden Apple ",
+        "config": "goldenApple",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Milk",
+        "config": "milk",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§eSpeed Potion",
+        "config": "speed",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§aJump Potion",
+        "config": "jump",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§bInvis Potion",
+        "config": "invis",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.bedwars.ResourceTracker",
+    "sourceHash": "8df211eba7af445079f0b4e818fc6009aaf70f06a1fbc9909f903823aadc6cfc",
+    "name": "ResourceTracker",
+    "category": "Bedwars",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Tracks resources in your inventory.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "stackMessages": true,
+      "soundMode": "Important",
+      "hideDefault": true,
+      "iron": true,
+      "gold": true,
+      "diamond": true,
+      "emerald": true,
+      "enderchest": true,
+      "mode": "Both",
+      "scale": 0.65,
+      "posX": 1,
+      "posY": 1
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Display",
+        "modes": [
+          "Both",
+          "HUD",
+          "Chat"
+        ],
+        "config": "mode",
+        "default": "Both"
+      },
+      {
+        "type": "Mode",
+        "name": "Ping sound",
+        "modes": [
+          "All",
+          "Important",
+          "None"
+        ],
+        "config": "soundMode",
+        "default": "Important"
+      },
+      {
+        "type": "Slider",
+        "name": "Scale",
+        "min": 0.5,
+        "max": 1.5,
+        "increment": 0.05,
+        "unit": null,
+        "config": "scale",
+        "default": 0.65
+      },
+      {
+        "type": "Toggle",
+        "name": "Stack messages",
+        "config": "stackMessages",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Hide default message",
+        "config": "hideDefault",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Include §5Enderchest",
+        "config": "enderchest",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Track §7Iron Ingots",
+        "config": "iron",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Track §6Gold Ingots",
+        "config": "gold",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Track §bDiamonds",
+        "config": "diamond",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Track §2Emeralds",
+        "config": "emerald",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.ShinyPots",
+    "sourceHash": "9737f5e966e952feb39f2ab2990e255ab7ed22f7ebd8710bf95af7e844860446",
+    "name": "ShinyPots",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Renders potion color as slot background.",
+    "defaults": {
+      "enabled": false,
+      "key": 0
+    },
+    "values": []
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.utility.Sprint",
+    "sourceHash": "abbd3ccef40499e207ca462853450a555972366ced865df5014d2849720d5dc1",
+    "name": "Sprint",
+    "category": "Utility",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Automatically toggles sprint for you.",
+    "defaults": {
+      "enabled": false,
+      "key": 0
+    },
+    "values": []
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.hypixel.Stats",
+    "sourceHash": "1c280e6913a07dad2bdd08909786e0e32d42b550cacedec918f714a62076cd89",
+    "name": "Stats",
+    "category": "Hypixel",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Displays certain stats of players.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "api": "Abyss",
+      "apiKey": "",
+      "cache": 30,
+      "cooldown": 100,
+      "displayMode": "Compact",
+      "tablist": true,
+      "nametag": true,
+      "chat": true,
+      "autoCheck": true,
+      "useTeamColor": false,
+      "urchinApi": true,
+      "urchinIgnoreSelf": false,
+      "urchinIcon": true,
+      "urchinChat": true,
+      "urchinApiKey": "",
+      "bedwars": true,
+      "bedwarsLevel": true,
+      "bedwarsKills": false,
+      "bedwarsFinals": false,
+      "bedwarsFkdr": true,
+      "bedwarsWlr": false,
+      "bedwarsWs": true,
+      "bedwarsCr": false,
+      "skywars": true,
+      "skywarsLevel": true,
+      "skywarsKills": false,
+      "skywarsWins": false,
+      "skywarsKdr": true,
+      "skywarsWlr": true
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "API",
+        "modes": [
+          "Hypixel",
+          "Abyss"
+        ],
+        "config": "api",
+        "default": "Abyss"
+      },
+      {
+        "type": "Button",
+        "name": "Clear cache",
+        "textScale": 5,
+        "action": "() -> {\n            wtf.tatp.meowtils.stats.StatsCache.clearCache();\n            if (wtf.tatp.meowtils.module.meowtils.Notifications.getMode() != wtf.tatp.meowtils.module.meowtils.Notifications.Mode.NOTIFICATION) {\n                wtf.tatp.meowtils.Meowtils.addMessage(\"Cleared stats cache.\");\n            }\n            if (wtf.tatp.meowtils.module.meowtils.Notifications.getMode() != wtf.tatp.meowtils.module.meowtils.Notifications.Mode.CHAT) {\n                wtf.tatp.meowtils.manager.NotificationManager.show(\"Stats\", \"Cleared cache.\", wtf.tatp.meowtils.manager.NotificationManager.Type.INFO, 1500L);\n            }\n        }"
+      },
+      {
+        "type": "Slider",
+        "name": "Cache duration",
+        "min": 5,
+        "max": 60,
+        "increment": 5,
+        "unit": "min",
+        "config": "cache",
+        "default": 30
+      },
+      {
+        "type": "Slider",
+        "name": "Fetch cooldown",
+        "min": 0,
+        "max": 2000,
+        "increment": 50,
+        "unit": "ms",
+        "config": "cooldown",
+        "default": 100
+      },
+      {
+        "type": "Mode",
+        "name": "Display mode",
+        "modes": [
+          "Full",
+          "Compact",
+          "Lowercase"
+        ],
+        "config": "displayMode",
+        "default": "Compact"
+      },
+      {
+        "type": "Expand",
+        "name": "Display",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Tablist",
+            "config": "tablist",
+            "default": true
+          },
+          {
+            "type": "Toggle",
+            "name": "Nametags",
+            "config": "nametag",
+            "default": true
+          },
+          {
+            "type": "Toggle",
+            "name": "Chat",
+            "config": "chat",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "Chat options",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Auto-check certain players",
+            "config": "autoCheck",
+            "default": true
+          },
+          {
+            "type": "Toggle",
+            "name": "Use team colors",
+            "config": "useTeamColor",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "Urchin",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Check Urchin API",
+            "config": "urchinApi",
+            "default": true
+          },
+          {
+            "type": "Toggle",
+            "name": "Ignore self",
+            "config": "urchinIgnoreSelf",
+            "default": false
+          },
+          {
+            "type": "Check",
+            "name": "Show name icons",
+            "config": "urchinIcon",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Show in chat",
+            "config": "urchinChat",
+            "default": true
+          },
+          {
+            "type": "Text",
+            "name": "API key",
+            "config": "urchinApiKey",
+            "description": "Urchin API key",
+            "default": ""
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "Bedwars",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "bedwars",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Level",
+            "config": "bedwarsLevel",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Final kills",
+            "config": "bedwarsFinals",
+            "default": false
+          },
+          {
+            "type": "Check",
+            "name": "FKDR",
+            "config": "bedwarsFkdr",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "WLR",
+            "config": "bedwarsWlr",
+            "default": false
+          },
+          {
+            "type": "Check",
+            "name": "Winstreak",
+            "config": "bedwarsWs",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Clutch ratio",
+            "config": "bedwarsCr",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "Skywars",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "skywars",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Level",
+            "config": "skywarsLevel",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Kills",
+            "config": "skywarsKills",
+            "default": false
+          },
+          {
+            "type": "Check",
+            "name": "Wins",
+            "config": "skywarsWins",
+            "default": false
+          },
+          {
+            "type": "Check",
+            "name": "KDR",
+            "config": "skywarsKdr",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "WLR",
+            "config": "skywarsWlr",
+            "default": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.skywars.StrengthESP",
+    "sourceHash": "f95063dad345e294072004cf3e4c68de89e388c913581f6899dabaf18442bcd7",
+    "name": "StrengthESP",
+    "category": "Skywars",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Renders a box on players who have the Strength effect.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "red": 255,
+      "green": 0,
+      "blue": 0,
+      "fillBox": true,
+      "mode": "3D",
+      "fadeOut": true
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Mode",
+        "modes": [
+          "3D",
+          "2D"
+        ],
+        "config": "mode",
+        "default": "3D"
+      },
+      {
+        "type": "Color",
+        "name": "ESP color",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Saturation",
+        "name": "Saturation",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Brightness",
+        "name": "Brightness",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Toggle",
+        "name": "Fill entire box",
+        "config": "fillBox",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Fade out",
+        "config": "fadeOut",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.bedwars.UpgradeAlerts",
+    "sourceHash": "4448ac23e0d016b55c1cbcdd1bf5a48e2178953baeb43d69d17424c9fc87c9bd",
+    "name": "UpgradeAlerts",
+    "category": "Bedwars",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Alerts when a team buys a team upgrade.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "sound": true,
+      "alertType": "Chat"
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Alert",
+        "modes": [
+          "Chat",
+          "Notification",
+          "All"
+        ],
+        "config": "alertType",
+        "default": "Chat"
+      },
+      {
+        "type": "Toggle",
+        "name": "Ping sound",
+        "config": "sound",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.utility.ViewClip",
+    "sourceHash": "8d589a7993f1913dc59674f2d5b9bacd142ba78c9f19cc7d73c3747bcf88bee5",
+    "name": "ViewClip",
+    "category": "Utility",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Allows your view to clip through blocks when in third person.",
+    "defaults": {
+      "enabled": false,
+      "key": 0
+    },
+    "values": []
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.skywars.SkywarsAlerts",
+    "sourceHash": "40fd9425eb3efd681c5d8d3488ba079d04220d0dc9a581ee8ee8bd42833f865a",
+    "name": "SkywarsAlerts",
+    "category": "Skywars",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Alerts you of items players have in Skywars.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "cooldown": 10,
+      "soundMode": "None",
+      "showDistance": true,
+      "fireSword": true,
+      "diamondSword": true,
+      "knockbackSword": true,
+      "knockbackRod": true,
+      "strengthPotion": true,
+      "enderPearl": true,
+      "corruptPearl": true,
+      "warpPearl": true,
+      "nametagIcon": true,
+      "swordIcon": true,
+      "knockbackIcon": true,
+      "pearlIcon": true,
+      "strengthIcon": true,
+      "alertType": "Chat"
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Alert",
+        "modes": [
+          "Chat",
+          "Notification",
+          "All"
+        ],
+        "config": "alertType",
+        "default": "Chat"
+      },
+      {
+        "type": "Mode",
+        "name": "Ping sound",
+        "modes": [
+          "All",
+          "Important",
+          "None"
+        ],
+        "config": "soundMode",
+        "default": "None"
+      },
+      {
+        "type": "Slider",
+        "name": "Cooldown",
+        "min": 1,
+        "max": 30,
+        "increment": 1,
+        "unit": "s",
+        "config": "cooldown",
+        "default": 10
+      },
+      {
+        "type": "Toggle",
+        "name": "Show distance",
+        "config": "showDistance",
+        "default": true
+      },
+      {
+        "type": "Expand",
+        "name": "Items",
+        "children": [
+          {
+            "type": "Check",
+            "name": "§cFire §fSword",
+            "config": "fireSword",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§bDiamond §fSword",
+            "config": "diamondSword",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§eKnockback §fSword",
+            "config": "knockbackSword",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§6Knockback §fRod",
+            "config": "knockbackRod",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§4Strength §fPotion",
+            "config": "strengthPotion",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§5Ender §fPearl",
+            "config": "enderPearl",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§3Corrupt §fPearl",
+            "config": "corruptPearl",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§dTime Warp §fPearl",
+            "config": "warpPearl",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "Nametag Icon",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Show icon",
+            "config": "nametagIcon",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§cSwords",
+            "config": "swordIcon",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§6Knockback §fItems",
+            "config": "knockbackIcon",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§5Ender §fPearl",
+            "config": "pearlIcon",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§4Strength §fPotion",
+            "config": "strengthIcon",
+            "default": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.skywars.MiningAlerts",
+    "sourceHash": "5e37352d98921210a7a8a6221a869cf97d1773c3d6e102d0dc47a86c6649057b",
+    "name": "MiningAlerts",
+    "category": "Skywars",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Alerts you when a player mines Diamond Ore.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "sound": true,
+      "alertType": "Chat"
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Alert",
+        "modes": [
+          "Chat",
+          "Notification",
+          "All"
+        ],
+        "config": "alertType",
+        "default": "Chat"
+      },
+      {
+        "type": "Toggle",
+        "name": "Ping sound",
+        "config": "sound",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.skywars.CooldownHUD",
+    "sourceHash": "98182437f927e64c30baac056ff1223cc5d3617846eab8d77b4ff81f94f819a2",
+    "name": "CooldownHUD",
+    "category": "Skywars",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Display item cooldowns on screen.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "scale": 0.65,
+      "hideAfterCooldown": false,
+      "posX": 1,
+      "posY": 1
+    },
+    "values": [
+      {
+        "type": "Color",
+        "name": "Text color",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Saturation",
+        "name": "Saturation",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Brightness",
+        "name": "Brightness",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Slider",
+        "name": "Scale",
+        "min": 0.5,
+        "max": 1.5,
+        "increment": 0.05,
+        "unit": null,
+        "config": "scale",
+        "default": 0.65
+      },
+      {
+        "type": "Toggle",
+        "name": "Hide after cooldown",
+        "config": "hideAfterCooldown",
+        "default": false
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.utility.AutoText",
+    "sourceHash": "6cd0af87853a2c4f2128bea7358436d48894bb8076efe77af7931907d1f8c243",
+    "name": "AutoText",
+    "category": "Utility",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Automatically send a message on key press.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "repeat": false,
+      "autoText1": "",
+      "autoText2": "",
+      "autoText3": "",
+      "autoText4": "",
+      "autoText5": "",
+      "autoText6": "",
+      "autoText7": "",
+      "autoText8": "",
+      "autoText9": "",
+      "autoText10": "",
+      "autoText1Bind": 0,
+      "autoText2Bind": 0,
+      "autoText3Bind": 0,
+      "autoText4Bind": 0,
+      "autoText5Bind": 0,
+      "autoText6Bind": 0,
+      "autoText7Bind": 0,
+      "autoText8Bind": 0,
+      "autoText9Bind": 0,
+      "autoText10Bind": 0
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Repeat while held",
+        "config": "repeat",
+        "default": false
+      },
+      {
+        "type": "Text",
+        "name": "1",
+        "config": "autoText1",
+        "description": "",
+        "default": ""
+      },
+      {
+        "type": "Bind",
+        "name": "Bind",
+        "config": "autoText1Bind",
+        "default": 0
+      },
+      {
+        "type": "Text",
+        "name": "2",
+        "config": "autoText2",
+        "description": "",
+        "default": ""
+      },
+      {
+        "type": "Bind",
+        "name": "Bind",
+        "config": "autoText2Bind",
+        "default": 0
+      },
+      {
+        "type": "Text",
+        "name": "3",
+        "config": "autoText3",
+        "description": "",
+        "default": ""
+      },
+      {
+        "type": "Bind",
+        "name": "Bind",
+        "config": "autoText3Bind",
+        "default": 0
+      },
+      {
+        "type": "Text",
+        "name": "4",
+        "config": "autoText4",
+        "description": "",
+        "default": ""
+      },
+      {
+        "type": "Bind",
+        "name": "Bind",
+        "config": "autoText4Bind",
+        "default": 0
+      },
+      {
+        "type": "Text",
+        "name": "5",
+        "config": "autoText5",
+        "description": "",
+        "default": ""
+      },
+      {
+        "type": "Bind",
+        "name": "Bind",
+        "config": "autoText5Bind",
+        "default": 0
+      },
+      {
+        "type": "Text",
+        "name": "6",
+        "config": "autoText6",
+        "description": "",
+        "default": ""
+      },
+      {
+        "type": "Bind",
+        "name": "Bind",
+        "config": "autoText6Bind",
+        "default": 0
+      },
+      {
+        "type": "Text",
+        "name": "7",
+        "config": "autoText7",
+        "description": "",
+        "default": ""
+      },
+      {
+        "type": "Bind",
+        "name": "Bind",
+        "config": "autoText7Bind",
+        "default": 0
+      },
+      {
+        "type": "Text",
+        "name": "8",
+        "config": "autoText8",
+        "description": "",
+        "default": ""
+      },
+      {
+        "type": "Bind",
+        "name": "Bind",
+        "config": "autoText8Bind",
+        "default": 0
+      },
+      {
+        "type": "Text",
+        "name": "9",
+        "config": "autoText9",
+        "description": "",
+        "default": ""
+      },
+      {
+        "type": "Bind",
+        "name": "Bind",
+        "config": "autoText9Bind",
+        "default": 0
+      },
+      {
+        "type": "Text",
+        "name": "10",
+        "config": "autoText10",
+        "description": "",
+        "default": ""
+      },
+      {
+        "type": "Bind",
+        "name": "Bind",
+        "config": "autoText10Bind",
+        "default": 0
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.advanced.AutoChest",
+    "sourceHash": "b13ec66d6c7120aeb0a76767d8812f28f8c3a6c99370face0eb825ec78820210",
+    "name": "AutoChest",
+    "category": "Advanced",
+    "alwaysEnabled": false,
+    "tag": "BLATANT",
+    "tooltip": "Automatically deposit resources into a chest. Only works in bedwars.\n§cWARNING: §cLow §cdelays §care §cdetectable!",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "dumpKey": 0,
+      "takeKey": 0,
+      "delay": 100,
+      "waitDelay": 100,
+      "renderClicked": true,
+      "enderChests": true,
+      "normalChests": false,
+      "iron": true,
+      "gold": true,
+      "diamonds": true,
+      "emeralds": true
+    },
+    "values": [
+      {
+        "type": "Slider",
+        "name": "Delay",
+        "min": 0,
+        "max": 500,
+        "increment": 50,
+        "unit": "ms",
+        "config": "delay",
+        "default": 100
+      },
+      {
+        "type": "Slider",
+        "name": "Wait delay",
+        "min": 0,
+        "max": 500,
+        "increment": 50,
+        "unit": "ms",
+        "config": "waitDelay",
+        "default": 100
+      },
+      {
+        "type": "Bind",
+        "name": "Dump",
+        "config": "dumpKey",
+        "default": 0
+      },
+      {
+        "type": "Bind",
+        "name": "Take",
+        "config": "takeKey",
+        "default": 0
+      },
+      {
+        "type": "Toggle",
+        "name": "Render clicked",
+        "config": "renderClicked",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Allow for §5Enderchest",
+        "config": "enderChests",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Allow for §eChest",
+        "config": "normalChests",
+        "default": false
+      },
+      {
+        "type": "Check",
+        "name": "§7Iron Ingots",
+        "config": "iron",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§6Gold Ingots",
+        "config": "gold",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§bDiamonds",
+        "config": "diamonds",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§2Emeralds",
+        "config": "emeralds",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.skywars.NoArmorDye",
+    "sourceHash": "4a9600d439eb9839be8975c53789d0543cb3cd49c33c8e236808ab63f50d33b8",
+    "name": "NoArmorDye",
+    "category": "Skywars",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Removes dye from leather armor.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "mode": "Both"
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Mode",
+        "modes": [
+          "Both",
+          "Model",
+          "Item"
+        ],
+        "config": "mode",
+        "default": "Both"
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.skywars.EquipAlerts",
+    "sourceHash": "9794ffda1e75c7cf478cac00329f0352e13c1d3128e89df62a97984a10fca25b",
+    "name": "EquipAlerts",
+    "category": "Skywars",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Alerts when a player equips selected armor piece.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "sound": false,
+      "helmet": true,
+      "chestplate": true,
+      "leggings": true,
+      "boots": true,
+      "alertType": "Chat"
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Alert",
+        "modes": [
+          "Chat",
+          "Notification",
+          "All"
+        ],
+        "config": "alertType",
+        "default": "Chat"
+      },
+      {
+        "type": "Toggle",
+        "name": "Ping sound",
+        "config": "sound",
+        "default": false
+      },
+      {
+        "type": "Check",
+        "name": "§bDiamond Helmet",
+        "config": "helmet",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§bDiamond Chestplate",
+        "config": "chestplate",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§bDiamond Leggings",
+        "config": "leggings",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§bDiamond Boots",
+        "config": "boots",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.ChestESP",
+    "sourceHash": "226c2c1c0b9ef1a82198c39d37a43508e759343c72ee0e8c8931b2e23730f984",
+    "name": "ChestESP",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Highlights chests",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "redOpen": 255,
+      "greenOpen": 0,
+      "blueOpen": 0,
+      "mode": "Normal",
+      "render": "Full",
+      "skywarsOnly": false
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Mode",
+        "modes": [
+          "Opened",
+          "Normal",
+          "Both"
+        ],
+        "config": "mode",
+        "default": "Normal"
+      },
+      {
+        "type": "Mode",
+        "name": "Render",
+        "modes": [
+          "Full",
+          "Outline"
+        ],
+        "config": "render",
+        "default": "Full"
+      },
+      {
+        "type": "Color",
+        "name": "Chest color",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Saturation",
+        "name": "Saturation",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Brightness",
+        "name": "Brightness",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Color",
+        "name": "Opened color",
+        "link": [
+          "redOpen",
+          "greenOpen",
+          "blueOpen"
+        ]
+      },
+      {
+        "type": "Toggle",
+        "name": "Skywars only",
+        "config": "skywarsOnly",
+        "default": false
+      },
+      {
+        "type": "Button",
+        "name": "Reset opened",
+        "textScale": 5,
+        "action": "() -> {\n            HIGHLIGHTED_CHESTS.clear();\n            if (wtf.tatp.meowtils.module.meowtils.Notifications.getMode() != wtf.tatp.meowtils.module.meowtils.Notifications.Mode.NOTIFICATION) {\n                wtf.tatp.meowtils.Meowtils.addMessage(\"Reset opened chest positions.\");\n            }\n            if (wtf.tatp.meowtils.module.meowtils.Notifications.getMode() != wtf.tatp.meowtils.module.meowtils.Notifications.Mode.CHAT) {\n                wtf.tatp.meowtils.manager.NotificationManager.show(\"ChestESP\", \"Reset positions.\", wtf.tatp.meowtils.manager.NotificationManager.Type.INFO, 1000L);\n            }\n        }"
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.meowtils.Settings",
+    "sourceHash": "292eb60df77a58055558e6aa1ebc9df05976aec2110eead01cd0a3e9453f904d",
+    "name": "Settings",
+    "category": "Meowtils",
+    "alwaysEnabled": true,
+    "tag": null,
+    "tooltip": "General Meowtils settings.\n§bAuto-Updates §f- Automatically download new updates\n§bSmooth font §f- Toggle smooth font for HUD elements\n§bCopy chat §f- Copy hovered chat message on right click\n§bPrefix §f- Change chat prefix colors\n§d/theme §f- Set custom prefix colors",
+    "defaults": {
+      "enabled": true,
+      "key": 0,
+      "themeM": "WHITE",
+      "themeE": "WHITE",
+      "themeO": "WHITE",
+      "themeW": "WHITE",
+      "themeFirstBracket": "GRAY",
+      "themeSecondBracket": "GRAY",
+      "autoUpdate": true,
+      "smoothFont": true,
+      "prefix": "Default",
+      "lowerCase": false,
+      "copyChat": true
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Auto-Updates",
+        "config": "autoUpdate",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Smooth font",
+        "config": "smoothFont",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Copy chat",
+        "config": "copyChat",
+        "default": true
+      },
+      {
+        "type": "Mode",
+        "name": "Prefix",
+        "modes": [
+          "Default",
+          "Myau",
+          "Fire",
+          "Nebula",
+          "Air",
+          "Custom",
+          "Short"
+        ],
+        "config": "prefix",
+        "default": "Default"
+      },
+      {
+        "type": "Check",
+        "name": "Lowercase",
+        "config": "lowerCase",
+        "default": false
+      },
+      {
+        "type": "Button",
+        "name": "Preview",
+        "textScale": 5,
+        "action": "() -> {\n            wtf.tatp.meowtils.Meowtils.addMessage(this.prefix);\n        }"
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.PotionHUD",
+    "sourceHash": "2acb184619ef6104f2c13830ed85a84b42dcef285add2132bcde50fee9c2f4fa",
+    "name": "PotionHUD",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Display important potion effects on screen.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "name": "Full",
+      "display": "Both",
+      "scale": 0.65,
+      "alertTime": 5,
+      "expireSound": true,
+      "hideInfinite": true,
+      "invis": true,
+      "jump": true,
+      "speed": true,
+      "regen": true,
+      "strength": true,
+      "fireRes": true,
+      "haste": true,
+      "fatigue": true,
+      "posX": 1,
+      "posY": 80
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Name",
+        "modes": [
+          "Full",
+          "Short",
+          "None"
+        ],
+        "config": "name",
+        "default": "Full"
+      },
+      {
+        "type": "Mode",
+        "name": "Display",
+        "modes": [
+          "Both",
+          "HUD",
+          "Chat"
+        ],
+        "config": "display",
+        "default": "Both"
+      },
+      {
+        "type": "Slider",
+        "name": "Scale",
+        "min": 0.5,
+        "max": 1.5,
+        "increment": 0.05,
+        "unit": null,
+        "config": "scale",
+        "default": 0.65
+      },
+      {
+        "type": "Slider",
+        "name": "Alert time",
+        "min": 0,
+        "max": 10,
+        "increment": 1,
+        "unit": "s",
+        "config": "alertTime",
+        "default": 5
+      },
+      {
+        "type": "Toggle",
+        "name": "Expire sound",
+        "config": "expireSound",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Hide infinite effects",
+        "config": "hideInfinite",
+        "default": true
+      },
+      {
+        "type": "Expand",
+        "name": "Potions",
+        "children": [
+          {
+            "type": "Check",
+            "name": "§bInvisibility",
+            "config": "invis",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§aJump Boost",
+            "config": "jump",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§eSpeed",
+            "config": "speed",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§dRegeneration",
+            "config": "regen",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§4Strength",
+            "config": "strength",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§6Fire Resistance",
+            "config": "fireRes",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§9Haste",
+            "config": "haste",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§7Mining Fatigue",
+            "config": "fatigue",
+            "default": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.utility.HotbarLock",
+    "sourceHash": "f3d8008f12e8bfda377a9da17e8db9f7af03f3192138e3b2aeb1144f138110fc",
+    "name": "HotbarLock",
+    "category": "Utility",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Lock slots in your hotbar.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "mode": "Manual",
+      "showLocked": true,
+      "slot1": true,
+      "slot2": true,
+      "slot3": true,
+      "slot4": true,
+      "slot5": true,
+      "slot6": true,
+      "slot7": true,
+      "slot8": true,
+      "slot9": true
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Mode",
+        "modes": [
+          "Manual",
+          "Swords"
+        ],
+        "config": "mode",
+        "default": "Manual"
+      },
+      {
+        "type": "Toggle",
+        "name": "Show locked slots",
+        "config": "showLocked",
+        "default": true
+      },
+      {
+        "type": "Expand",
+        "name": "Slots",
+        "children": [
+          {
+            "type": "Check",
+            "name": "Slot 1",
+            "config": "slot1",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Slot 2",
+            "config": "slot2",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Slot 3",
+            "config": "slot3",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Slot 4",
+            "config": "slot4",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Slot 5",
+            "config": "slot5",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Slot 6",
+            "config": "slot6",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Slot 7",
+            "config": "slot7",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Slot 8",
+            "config": "slot8",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Slot 9",
+            "config": "slot9",
+            "default": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.skywars.PearlDetector",
+    "sourceHash": "95e9ef5b232aa8ba9d14be2b4c9ce923949c0a338f11b098f9e5fda62d65345e",
+    "name": "PearlDetector",
+    "category": "Skywars",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Detects thrown pearls & displays various information such as warp location\nfor other players and warp timer for yourself.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "scale": 0.65,
+      "timerSelf": true,
+      "positionOthers": true,
+      "thrownAlert": true,
+      "sound": true,
+      "ender": true,
+      "corrupt": true,
+      "warp": true,
+      "posX": 1,
+      "posY": 1,
+      "timerStartMode": "On message"
+    },
+    "values": [
+      {
+        "type": "Color",
+        "name": "Text color",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Saturation",
+        "name": "Saturation",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Brightness",
+        "name": "Brightness",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Mode",
+        "name": "Timer",
+        "modes": [
+          "On message",
+          "On click"
+        ],
+        "config": "timerStartMode",
+        "default": "On message"
+      },
+      {
+        "type": "Slider",
+        "name": "Text scale",
+        "min": 0.5,
+        "max": 1.5,
+        "increment": 0.05,
+        "unit": null,
+        "config": "scale",
+        "default": 0.65
+      },
+      {
+        "type": "Toggle",
+        "name": "Ping sound",
+        "config": "sound",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Timer for self",
+        "config": "timerSelf",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Position for others",
+        "config": "positionOthers",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Thrown pearl alert",
+        "config": "thrownAlert",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§5Ender §fPearl",
+        "config": "ender",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§3Corrupt §fPearl",
+        "config": "corrupt",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§dTime §dWarp §fPearl",
+        "config": "warp",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.advanced.AutoSwap",
+    "sourceHash": "2c8c09fe23ab4d90375c05aa51fc23312354146f90704d81986b872985868894",
+    "name": "AutoSwap",
+    "category": "Advanced",
+    "alwaysEnabled": false,
+    "tag": "BLATANT",
+    "tooltip": "Automatically swap slots when running out of certain items.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "blocks": true,
+      "projectiles": true,
+      "resources": true,
+      "pearls": true,
+      "swords": true,
+      "swordOnAttack": true,
+      "tools": true
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "§7Blocks",
+        "config": "blocks",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "§6Projectiles",
+        "config": "projectiles",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "§2Resources",
+        "config": "resources",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "§5Pearls",
+        "config": "pearls",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "§3Swords",
+        "config": "swords",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Swap on attack",
+        "config": "swordOnAttack",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "§eTools",
+        "config": "tools",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.BlockCount",
+    "sourceHash": "ef72b9b96dd8af9a92dd4f30c88a28adec87b5048db1c7a9a2f15c44321f8c4f",
+    "name": "BlockCount",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Displays block count on screen.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "scale": 0.65,
+      "threshold": 4,
+      "alert": true,
+      "sound": true,
+      "posX": 1,
+      "posY": 1
+    },
+    "values": [
+      {
+        "type": "Color",
+        "name": "Text color",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Saturation",
+        "name": "Saturation",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Brightness",
+        "name": "Brightness",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Slider",
+        "name": "Scale",
+        "min": 0.5,
+        "max": 1.5,
+        "increment": 0.05,
+        "unit": null,
+        "config": "scale",
+        "default": 0.65
+      },
+      {
+        "type": "Slider",
+        "name": "Alert threshold",
+        "min": 1,
+        "max": 16,
+        "increment": 1,
+        "unit": "blocks",
+        "config": "threshold",
+        "default": 4
+      },
+      {
+        "type": "Toggle",
+        "name": "Alert when low",
+        "config": "alert",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Ping sound",
+        "config": "sound",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.bedwars.BedTracker",
+    "sourceHash": "cc92e9cb6dbde19384e72c5ee0a28110d0be71d5b1d0eedf6ffd4ffd335a043c",
+    "name": "BedTracker",
+    "category": "Bedwars",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Alerts when enemy players are near your bed and shows distance to your bed on screen.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "scale": 0.65,
+      "frequency": 10,
+      "distance": 50,
+      "sound": true,
+      "hud": true,
+      "posX": 1,
+      "posY": 1
+    },
+    "values": [
+      {
+        "type": "Color",
+        "name": "Text color",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Saturation",
+        "name": "Saturation",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Brightness",
+        "name": "Brightness",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Slider",
+        "name": "Scale",
+        "min": 0.5,
+        "max": 1.5,
+        "increment": 0.05,
+        "unit": null,
+        "config": "scale",
+        "default": 0.65
+      },
+      {
+        "type": "Slider",
+        "name": "Alert frequency",
+        "min": 5,
+        "max": 30,
+        "increment": 1,
+        "unit": "s",
+        "config": "frequency",
+        "default": 10
+      },
+      {
+        "type": "Slider",
+        "name": "Max distance",
+        "min": 10,
+        "max": 100,
+        "increment": 5,
+        "unit": "m",
+        "config": "distance",
+        "default": 50
+      },
+      {
+        "type": "Toggle",
+        "name": "Ping sound",
+        "config": "sound",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Show HUD",
+        "config": "hud",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.InstantHurt",
+    "sourceHash": "e4615ff24506e05623fec402e4566122b061f1ad98e51780ebd3e1c1eb2840a3",
+    "name": "InstantHurt",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Instantly render hurt animation on players clientside.",
+    "defaults": {
+      "enabled": false,
+      "key": 0
+    },
+    "values": []
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.advanced.DelayRemover",
+    "sourceHash": "e1bcaa91bba7d873cae8871d86825c846c64dc46094c06cfbe5cc25a0aa1e6d7",
+    "name": "DelayRemover",
+    "category": "Advanced",
+    "alwaysEnabled": false,
+    "tag": "BLATANT",
+    "tooltip": "Remove or reduce certain delays.\n§6NoBreakDelay §f- Remove or reduce delay between block breaks\n§6NoUseDelay §f- Releases right click after required use duration\n§6NoHitDelay §f- Removes delay if you miss an attack\n§6NoJumpDelay §f- Removes delay between jumps\n§cWARNING: §cSome §cof §cthese §cfeatures §cmay §cbe §cdetectable.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "breakDelay": 0,
+      "useDelay": 1,
+      "jumpDelay": 0,
+      "noBreakDelay": true,
+      "noUseDelay": true,
+      "noHitDelay": true,
+      "noJumpDelay": true
+    },
+    "values": [
+      {
+        "type": "Expand",
+        "name": "NoBreakDelay",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "noBreakDelay",
+            "default": true
+          },
+          {
+            "type": "Slider",
+            "name": "Delay",
+            "min": 0,
+            "max": 5,
+            "increment": 1,
+            "unit": "ticks",
+            "config": "breakDelay",
+            "default": 0
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "NoUseDelay",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "noUseDelay",
+            "default": true
+          },
+          {
+            "type": "Slider",
+            "name": "Delay",
+            "min": 0,
+            "max": 4,
+            "increment": 1,
+            "unit": "ticks",
+            "config": "useDelay",
+            "default": 1
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "NoHitDelay",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "noHitDelay",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "NoJumpDelay",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "noJumpDelay",
+            "default": true
+          },
+          {
+            "type": "Slider",
+            "name": "Delay",
+            "min": 0,
+            "max": 10,
+            "increment": 1,
+            "unit": "ticks",
+            "config": "jumpDelay",
+            "default": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.advanced.AutoStairs",
+    "sourceHash": "10ff2654d21c44f86155a36a76e8d654838dd7bdb481ac816962dfffe42e09b9",
+    "name": "AutoStairs",
+    "category": "Advanced",
+    "alwaysEnabled": false,
+    "tag": "BLATANT",
+    "tooltip": "Automatically jumps when going up stairs, for faster movement.",
+    "defaults": {
+      "enabled": false,
+      "key": 0
+    },
+    "values": []
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.AntiInvis",
+    "sourceHash": "fa82f82a5c686f4b0724c7ebd4d377307e2219580489d4803fa27877615a2fc5",
+    "name": "Anti-Invis",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Renders invisible players semi-transparent instead.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "opacity": 50
+    },
+    "values": [
+      {
+        "type": "Opacity",
+        "name": "Opacity",
+        "config": "opacity",
+        "default": 50
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.bedwars.TrapNotifier",
+    "sourceHash": "706c383ffde87498c49fa51eb3c709bbf88fd184823bfb99354922d19e983bff",
+    "name": "TrapNotifier",
+    "category": "Bedwars",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Reminds when you're missing a trap and notify when you trigger one.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "sound": true,
+      "triggerAlert": true,
+      "missingReminder": true
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Triggered trap alert",
+        "config": "triggerAlert",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Missing trap reminder",
+        "config": "missingReminder",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Ping sound",
+        "config": "sound",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.utility.ActionSounds",
+    "sourceHash": "1f8abc5731044c3e169ad0f15eeaa83340f0fcc0dd79222040a83198a93d8414",
+    "name": "ActionSounds",
+    "category": "Utility",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Plays a sound when performing certain actions.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "blockSound": true,
+      "critSound": true,
+      "volume": 100
+    },
+    "values": [
+      {
+        "type": "Slider",
+        "name": "Volume",
+        "min": 0,
+        "max": 100,
+        "increment": 5,
+        "unit": "%",
+        "config": "volume",
+        "default": 100
+      },
+      {
+        "type": "Toggle",
+        "name": "Blocked damage",
+        "config": "blockSound",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Critical hit",
+        "config": "critSound",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.meowtils.Teams",
+    "sourceHash": "20802b04049802416b8f55f3cc1d54fcd0eaadb1c48960e65c4c5cf17d609536",
+    "name": "Teams",
+    "category": "Meowtils",
+    "alwaysEnabled": true,
+    "tag": null,
+    "tooltip": "Makes certain modules ignore teammates.",
+    "defaults": {
+      "enabled": true,
+      "key": 0,
+      "ignoreBotMode": "Dynamic",
+      "ignoreTeam": true,
+      "ignoreFriends": false
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Ignore bots",
+        "modes": [
+          "Hypixel",
+          "Universal",
+          "Dynamic",
+          "None"
+        ],
+        "config": "ignoreBotMode",
+        "default": "Dynamic"
+      },
+      {
+        "type": "Toggle",
+        "name": "Ignore team",
+        "config": "ignoreTeam",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Ignore friends",
+        "config": "ignoreFriends",
+        "default": false
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.hypixel.PartyNotifier",
+    "sourceHash": "90997b241c316e527f041f87b4929eba8451199070fba6103af2e5a2124f8af0",
+    "name": "PartyNotifier",
+    "category": "Hypixel",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Sends a notification to party chat from selected modules.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "showPrefix": true,
+      "antiCheat": true,
+      "denicker": true,
+      "armorAlerts": false,
+      "bedTracker": false,
+      "consumeAlerts": false,
+      "itemAlerts": false,
+      "upgradeAlerts": false,
+      "partyDetector": false,
+      "urchin": true,
+      "antiCheatMessage": "#player failed #check",
+      "denickerMessage": "#player is nicked.",
+      "denickerMessageFull": "#denicked is nicked as #name.",
+      "armorAlertsMessage": "#player purchased #armor",
+      "bedTrackerMessage": "#player is #distance blocks from your bed! #warning",
+      "consumeAlertsMessage": "#player consumed #item",
+      "itemAlertsMessage": "#player has #item",
+      "upgradeAlertsMessage": "#team purchased #upgrade",
+      "partyDetectorMessage": "Warning: #amount players joined! (Party)",
+      "urchinMessage": "#player is tagged on Urchin for #tag"
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Show prefix",
+        "config": "showPrefix",
+        "default": true
+      },
+      {
+        "type": "Button",
+        "name": "Reset messages",
+        "textScale": 5,
+        "action": "() -> {\n            resetDefault();\n            if (wtf.tatp.meowtils.module.meowtils.Notifications.getMode() != wtf.tatp.meowtils.module.meowtils.Notifications.Mode.NOTIFICATION) {\n                wtf.tatp.meowtils.Meowtils.addMessage(\"Reset all PartyNotifier messages.\");\n            }\n            if (wtf.tatp.meowtils.module.meowtils.Notifications.getMode() != wtf.tatp.meowtils.module.meowtils.Notifications.Mode.CHAT) {\n                wtf.tatp.meowtils.manager.NotificationManager.show(\"PartyNotifier\", \"Reset messages.\", wtf.tatp.meowtils.manager.NotificationManager.Type.INFO, 2000L);\n            }\n        }"
+      },
+      {
+        "type": "Expand",
+        "name": "AntiCheat notify",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "antiCheat",
+            "default": true
+          },
+          {
+            "type": "Text",
+            "name": null,
+            "config": "antiCheatMessage",
+            "description": "#player #check",
+            "default": "#player failed #check"
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "Denicker notify",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "denicker",
+            "default": true
+          },
+          {
+            "type": "Text",
+            "name": null,
+            "config": "denickerMessage",
+            "description": "#player",
+            "default": "#player is nicked."
+          },
+          {
+            "type": "Text",
+            "name": null,
+            "config": "denickerMessageFull",
+            "description": "#player #denicked",
+            "default": "#denicked is nicked as #name."
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "Urchin notify",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "urchin",
+            "default": true
+          },
+          {
+            "type": "Text",
+            "name": null,
+            "config": "urchinMessage",
+            "description": "#player #tag",
+            "default": "#player is tagged on Urchin for #tag"
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "ArmorAlerts notify",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "armorAlerts",
+            "default": false
+          },
+          {
+            "type": "Text",
+            "name": null,
+            "config": "armorAlertsMessage",
+            "description": "#player #armor",
+            "default": "#player purchased #armor"
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "BedTracker notify",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "bedTracker",
+            "default": false
+          },
+          {
+            "type": "Text",
+            "name": null,
+            "config": "bedTrackerMessage",
+            "description": "#player #distance #warning",
+            "default": "#player is #distance blocks from your bed! #warning"
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "ConsumeAlerts notify",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "consumeAlerts",
+            "default": false
+          },
+          {
+            "type": "Text",
+            "name": null,
+            "config": "consumeAlertsMessage",
+            "description": "#player #item",
+            "default": "#player consumed #item"
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "ItemAlerts notify",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "itemAlerts",
+            "default": false
+          },
+          {
+            "type": "Text",
+            "name": null,
+            "config": "itemAlertsMessage",
+            "description": "#player #item",
+            "default": "#player has #item"
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "UpgradeAlerts notify",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "upgradeAlerts",
+            "default": false
+          },
+          {
+            "type": "Text",
+            "name": null,
+            "config": "upgradeAlertsMessage",
+            "description": "#team #upgrade",
+            "default": "#team purchased #upgrade"
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "PartyDetector notify",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "partyDetector",
+            "default": false
+          },
+          {
+            "type": "Text",
+            "name": null,
+            "config": "partyDetectorMessage",
+            "description": "#amount",
+            "default": "Warning: #amount players joined! (Party)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.meowtils.Icons",
+    "sourceHash": "c2ff28e4c795f3f073b43608e80fccee7456d63d1edbaf469f84a90f6e1c8f19",
+    "name": "Icons",
+    "category": "Meowtils",
+    "alwaysEnabled": true,
+    "tag": null,
+    "tooltip": "Settings for player icons.",
+    "defaults": {
+      "enabled": true,
+      "key": 0,
+      "display": "Always",
+      "blacklistIcon": true,
+      "safelistIcon": true,
+      "friendIcon": true
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Display",
+        "modes": [
+          "Always",
+          "Tablist",
+          "Nametags"
+        ],
+        "config": "display",
+        "default": "Always"
+      },
+      {
+        "type": "Check",
+        "name": "§4Blacklist §fIcons",
+        "config": "blacklistIcon",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§aSafelist §fIcons",
+        "config": "safelistIcon",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§6Friend §fIcons",
+        "config": "friendIcon",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.antisnipe.SniperWarning",
+    "sourceHash": "5d1161c14e7675ff03c2a9c6ce586bcbf32ec4c0a0ef98f8c4c2c7b7d81656a3",
+    "name": "SniperWarning",
+    "category": "Antisnipe",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Warns you of certain players that may be snipers.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "sound": true,
+      "checkGear": true,
+      "checkName": true,
+      "checkStats": false,
+      "fetchStats": false
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Fetch stats",
+        "config": "fetchStats",
+        "default": false
+      },
+      {
+        "type": "Toggle",
+        "name": "Ping sound",
+        "config": "sound",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Check gear",
+        "config": "checkGear",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Check name",
+        "config": "checkName",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Check stats",
+        "config": "checkStats",
+        "default": false
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.Animations",
+    "sourceHash": "ef516e75ef77b2ba43c65e60a17fbd84f740846410178c0e91a84a2192bea7bf",
+    "name": "Animations",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Allows you to change certain animations. Visual only.\n§eNote: §eRightclick §eonly §eworks §eon §ewindows.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "fakeAutoblock": true,
+      "autoblockMode": "Always",
+      "cancelSwing": false,
+      "cancelSwingRightClick": false,
+      "cancelConsume": false,
+      "cancelBow": false
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Fake autoblock",
+        "config": "fakeAutoblock",
+        "default": true
+      },
+      {
+        "type": "Mode",
+        "name": "Activate",
+        "modes": [
+          "Always",
+          "Rightclick",
+          "Killaura"
+        ],
+        "config": "autoblockMode",
+        "default": "Always"
+      },
+      {
+        "type": "Toggle",
+        "name": "Cancel swing animation",
+        "config": "cancelSwing",
+        "default": false
+      },
+      {
+        "type": "Check",
+        "name": "Rightclick only",
+        "config": "cancelSwingRightClick",
+        "default": false
+      },
+      {
+        "type": "Toggle",
+        "name": "Cancel consume animation",
+        "config": "cancelConsume",
+        "default": false
+      },
+      {
+        "type": "Toggle",
+        "name": "Cancel bow animation",
+        "config": "cancelBow",
+        "default": false
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.bedwars.AntiMisplace",
+    "sourceHash": "ed38f32197e40f7e696b884707034a6188441b90a0a3807d9ce2e8381b138c5e",
+    "name": "AntiMisplace",
+    "category": "Bedwars",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Prevents placing obsidian if it isn't around a bed.",
+    "defaults": {
+      "enabled": false,
+      "key": 0
+    },
+    "values": []
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.hypixel.AutoGG",
+    "sourceHash": "3dce7656ba03c240500a2e8ecdca9d94eb1364db8728c9081f26125fa7a7827f",
+    "name": "AutoGG",
+    "category": "Hypixel",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Automatically sends messages on game start/end.\n§d/autogg|/autogl <add|remove|list> <msg> §f- Add/remove/list messages",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "autoggEnabled": true,
+      "sendFirstMessage": true,
+      "sendSecondMessage": false,
+      "firstMessage": "gg",
+      "secondMessage": "<3",
+      "autoggDelay": 0,
+      "autoggSecondDelay": 0,
+      "autoglEnabled": false,
+      "autoglMessage": "glhf",
+      "autoglDelay": 5,
+      "autoggRandom": false,
+      "autoglRandom": false
+    },
+    "values": [
+      {
+        "type": "Expand",
+        "name": "Auto GG",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "autoggEnabled",
+            "default": true
+          },
+          {
+            "type": "Toggle",
+            "name": "Random message",
+            "config": "autoggRandom",
+            "default": false
+          },
+          {
+            "type": "Check",
+            "name": "First message",
+            "config": "sendFirstMessage",
+            "default": true
+          },
+          {
+            "type": "Text",
+            "name": null,
+            "config": "firstMessage",
+            "description": "",
+            "default": "gg"
+          },
+          {
+            "type": "Slider",
+            "name": "Delay",
+            "min": 0,
+            "max": 1000,
+            "increment": 50,
+            "unit": "ms",
+            "config": "autoggDelay",
+            "default": 0
+          },
+          {
+            "type": "Check",
+            "name": "Second message",
+            "config": "sendSecondMessage",
+            "default": false
+          },
+          {
+            "type": "Text",
+            "name": null,
+            "config": "secondMessage",
+            "description": "",
+            "default": "<3"
+          },
+          {
+            "type": "Slider",
+            "name": "Delay",
+            "min": 0,
+            "max": 1000,
+            "increment": 50,
+            "unit": "ms",
+            "config": "autoggSecondDelay",
+            "default": 0
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "Auto GL",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "autoglEnabled",
+            "default": false
+          },
+          {
+            "type": "Toggle",
+            "name": "Random message",
+            "config": "autoglRandom",
+            "default": false
+          },
+          {
+            "type": "Text",
+            "name": null,
+            "config": "autoglMessage",
+            "description": "",
+            "default": "glhf"
+          },
+          {
+            "type": "Slider",
+            "name": "Send at",
+            "min": 1,
+            "max": 15,
+            "increment": 1,
+            "unit": "s",
+            "config": "autoglDelay",
+            "default": 5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.hypixel.Requeue",
+    "sourceHash": "ee6d8850627a014f6aaaa49927e19152688cc2ee91a12e423aeb1af90a34982a",
+    "name": "Requeue",
+    "category": "Hypixel",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Allows you to manually or automatically requeue last played Hypixel game.\n§d/rq §f- Requeue last played game",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "lastPlayCommand": "",
+      "feedback": true,
+      "autoRequeue": false,
+      "autoRequeueDelay": 4,
+      "requeueKey": 0
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Feedback message",
+        "config": "feedback",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Auto requeue",
+        "config": "autoRequeue",
+        "default": false
+      },
+      {
+        "type": "Slider",
+        "name": "Delay",
+        "min": 0,
+        "max": 10,
+        "increment": 1,
+        "unit": "s",
+        "config": "autoRequeueDelay",
+        "default": 4
+      },
+      {
+        "type": "Bind",
+        "name": "Requeue Bind",
+        "config": "requeueKey",
+        "default": 0
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.ItemESP",
+    "sourceHash": "9691acf40ef22dd24dad4cce32ebdb51b0dcdef4ac4bfe9b5ac837ac8129873a",
+    "name": "ItemESP",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Highlights important dropped items.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "textScale": 0.65,
+      "opacity": 25,
+      "mode": "3D",
+      "display": "Both",
+      "render": "Full",
+      "font": "Normal",
+      "compactText": true,
+      "autoScale": true,
+      "stackSize": true,
+      "showDistance": true,
+      "dynamicColor": false,
+      "bedwarsOnly": false,
+      "iron": true,
+      "gold": true,
+      "diamond": true,
+      "emerald": true
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Mode",
+        "modes": [
+          "3D",
+          "2D"
+        ],
+        "config": "mode",
+        "default": "3D"
+      },
+      {
+        "type": "Mode",
+        "name": "Render",
+        "modes": [
+          "Full",
+          "Outline"
+        ],
+        "config": "render",
+        "default": "Full"
+      },
+      {
+        "type": "Mode",
+        "name": "Display",
+        "modes": [
+          "Both",
+          "Box",
+          "Text"
+        ],
+        "config": "display",
+        "default": "Both"
+      },
+      {
+        "type": "Mode",
+        "name": "Font",
+        "modes": [
+          "Normal",
+          "Smooth"
+        ],
+        "config": "font",
+        "default": "Normal"
+      },
+      {
+        "type": "Slider",
+        "name": "Text scale",
+        "min": 0.5,
+        "max": 1.5,
+        "increment": 0.05,
+        "unit": null,
+        "config": "textScale",
+        "default": 0.65
+      },
+      {
+        "type": "Opacity",
+        "name": "Box opacity",
+        "config": "opacity",
+        "default": 25
+      },
+      {
+        "type": "Toggle",
+        "name": "Auto-scale",
+        "config": "autoScale",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Show stack size",
+        "config": "stackSize",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Show distance",
+        "config": "showDistance",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Compact text",
+        "config": "compactText",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Dynamic text color",
+        "config": "dynamicColor",
+        "default": false
+      },
+      {
+        "type": "Toggle",
+        "name": "Bedwars only",
+        "config": "bedwarsOnly",
+        "default": false
+      },
+      {
+        "type": "Check",
+        "name": "Iron §7Items",
+        "config": "iron",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§6Gold §7Items",
+        "config": "gold",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§bDiamond §7Items",
+        "config": "diamond",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§2Emerald §7Items",
+        "config": "emerald",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.Indicators",
+    "sourceHash": "b93f6ac54813cfc24042409b0d3f41c6c5c70258a41d0ad6aa81a98d4e97fc35",
+    "name": "Indicators",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Highlights dangerous projectiles.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "opacity": 50,
+      "mode": "3D",
+      "render": "Full",
+      "arrow": true,
+      "fireball": true,
+      "pearl": true,
+      "arrowExpand": 0,
+      "fireballExpand": 0,
+      "pearlExpand": 0
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Mode",
+        "modes": [
+          "3D",
+          "2D"
+        ],
+        "config": "mode",
+        "default": "3D"
+      },
+      {
+        "type": "Mode",
+        "name": "Render",
+        "modes": [
+          "Full",
+          "Outline"
+        ],
+        "config": "render",
+        "default": "Full"
+      },
+      {
+        "type": "Opacity",
+        "name": "Opacity",
+        "config": "opacity",
+        "default": 50
+      },
+      {
+        "type": "Check",
+        "name": "Arrows",
+        "config": "arrow",
+        "default": true
+      },
+      {
+        "type": "Slider",
+        "name": "Arrow expand",
+        "min": 0,
+        "max": 1,
+        "increment": 0.1,
+        "unit": "x",
+        "config": "arrowExpand",
+        "default": 0
+      },
+      {
+        "type": "Check",
+        "name": "§cFireballs",
+        "config": "fireball",
+        "default": true
+      },
+      {
+        "type": "Slider",
+        "name": "Fireball expand",
+        "min": 0,
+        "max": 1,
+        "increment": 0.1,
+        "unit": "x",
+        "config": "fireballExpand",
+        "default": 0
+      },
+      {
+        "type": "Check",
+        "name": "§5Ender Pearls",
+        "config": "pearl",
+        "default": true
+      },
+      {
+        "type": "Slider",
+        "name": "Pearl expand",
+        "min": 0,
+        "max": 1,
+        "increment": 0.1,
+        "unit": "x",
+        "config": "pearlExpand",
+        "default": 0
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.hypixel.AccountHider",
+    "sourceHash": "d63da69801b75274d2de8df1c1e2dabc222968c67a9dd3884140405a44e1c0ba",
+    "name": "AccountHider",
+    "category": "Hypixel",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Visually modify account information.\n§d/customname <name> §f- Set custom name",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "skin": false,
+      "skinLocation": "",
+      "hideName": false,
+      "customName": "You",
+      "armMode": "Default"
+    },
+    "values": [
+      {
+        "type": "Expand",
+        "name": "Custom name",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "hideName",
+            "default": false
+          },
+          {
+            "type": "Text",
+            "name": "Name",
+            "config": "customName",
+            "description": "You",
+            "default": "You"
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "Custom skin",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "skin",
+            "default": false
+          },
+          {
+            "type": "Mode",
+            "name": "Arms",
+            "modes": [
+              "Default",
+              "Slim"
+            ],
+            "config": "armMode",
+            "default": "Default"
+          },
+          {
+            "type": "Text",
+            "name": "Skin",
+            "config": "skinLocation",
+            "description": "File name",
+            "default": ""
+          },
+          {
+            "type": "Button",
+            "name": "Skin folder",
+            "textScale": 5,
+            "action": "() -> {\n                wtf.tatp.meowtils.util.Util.openFolder(wtf.tatp.meowtils.Meowtils.CUSTOM_SKIN_DIR, \"skin\");\n            }"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.hypixel.SessionStats",
+    "sourceHash": "2e3cd3306030c3be3192f1a113dbbf070db9cb3afb201b785d34c784c06b6e92",
+    "name": "SessionStats",
+    "category": "Hypixel",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Tracks your own stats for this game session.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "mode": "Horizontal",
+      "scale": 0.65,
+      "reset": true,
+      "recap": true,
+      "bedwars": true,
+      "bedwarsSessionKills": true,
+      "bedwarsSessionFinals": true,
+      "bedwarsSessionExp": true,
+      "bedwarsSessionFkdr": true,
+      "skywars": true,
+      "skywarsSessionKills": true,
+      "skywarsSessionExp": true,
+      "posX": 1,
+      "posY": 1
+    },
+    "values": [
+      {
+        "type": "Color",
+        "name": "Color",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Saturation",
+        "name": "Saturation",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Brightness",
+        "name": "Brightness",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Mode",
+        "name": "Display",
+        "modes": [
+          "Horizontal",
+          "Vertical"
+        ],
+        "config": "mode",
+        "default": "Horizontal"
+      },
+      {
+        "type": "Button",
+        "name": "Reset",
+        "textScale": 5,
+        "action": "() -> {\n            resetNormal();\n            resetTemp();\n            if (wtf.tatp.meowtils.module.meowtils.Notifications.getMode() != wtf.tatp.meowtils.module.meowtils.Notifications.Mode.NOTIFICATION) {\n                wtf.tatp.meowtils.Meowtils.addMessage(\"Reset session stats!\");\n            }\n            if (wtf.tatp.meowtils.module.meowtils.Notifications.getMode() != wtf.tatp.meowtils.module.meowtils.Notifications.Mode.CHAT) {\n                wtf.tatp.meowtils.manager.NotificationManager.show(\"SessionStats\", \"Reset stats!\", wtf.tatp.meowtils.manager.NotificationManager.Type.INFO, 1500L);\n            }\n        }"
+      },
+      {
+        "type": "Slider",
+        "name": "Scale",
+        "min": 0.5,
+        "max": 1.5,
+        "increment": 0.05,
+        "unit": null,
+        "config": "scale",
+        "default": 0.65
+      },
+      {
+        "type": "Toggle",
+        "name": "Reset after game",
+        "config": "reset",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Game recap message",
+        "config": "recap",
+        "default": true
+      },
+      {
+        "type": "Expand",
+        "name": "Bedwars",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "bedwars",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Show: §7Kills",
+            "config": "bedwarsSessionKills",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Show: §7Final kills",
+            "config": "bedwarsSessionFinals",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Show: §7FKDR",
+            "config": "bedwarsSessionFkdr",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Show: §7Earned exp",
+            "config": "bedwarsSessionExp",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "Skywars",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "skywars",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Show: §7Kills",
+            "config": "skywarsSessionKills",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Show: §7Earned exp",
+            "config": "skywarsSessionExp",
+            "default": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.bedwars.EventTimers",
+    "sourceHash": "f9c9616af3b90c2b4ca80376d7782bdca0f0247f797965357cba3b6a86bf7b06",
+    "name": "EventTimers",
+    "category": "Bedwars",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Displays event timers.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "eventPosX": 0,
+      "eventPosY": 0,
+      "scale": 0.65,
+      "eventTime": true,
+      "onlyNext": false,
+      "romanNumerals": false,
+      "eventDynamicColor": false,
+      "diamondTimer": true,
+      "emeraldTimer": true,
+      "bedGoneTimer": true,
+      "suddenDeathTimer": true,
+      "gameEndTimer": true,
+      "emeraldTime": true,
+      "emeraldPosX": 1,
+      "emeraldPosY": 1,
+      "emeraldDynamicColor": true
+    },
+    "values": [
+      {
+        "type": "Slider",
+        "name": "Scale",
+        "min": 0.5,
+        "max": 1.5,
+        "increment": 0.05,
+        "unit": null,
+        "config": "scale",
+        "default": 0.65
+      },
+      {
+        "type": "Expand",
+        "name": "Events",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "eventTime",
+            "default": true
+          },
+          {
+            "type": "Toggle",
+            "name": "Show next events only",
+            "config": "onlyNext",
+            "default": false
+          },
+          {
+            "type": "Toggle",
+            "name": "Roman numerals",
+            "config": "romanNumerals",
+            "default": false
+          },
+          {
+            "type": "Toggle",
+            "name": "Dynamic color",
+            "config": "eventDynamicColor",
+            "default": false
+          },
+          {
+            "type": "Check",
+            "name": "§bDiamond §7Timer",
+            "config": "diamondTimer",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§2Emerald §7Timer",
+            "config": "emeraldTimer",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§6Bed Gone §7Timer",
+            "config": "bedGoneTimer",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§5Sudden Death §7Timer",
+            "config": "suddenDeathTimer",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§cGame End §7Timer",
+            "config": "gameEndTimer",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "Emeralds",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "emeraldTime",
+            "default": true
+          },
+          {
+            "type": "Toggle",
+            "name": "Dynamic color",
+            "config": "emeraldDynamicColor",
+            "default": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.TimeChanger",
+    "sourceHash": "f8c88423acf8f2956707577b7c205ef7e7f072e8fef4c70c1d8884ec4cd711bd",
+    "name": "TimeChanger",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Changes time clientside.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "time": 12,
+      "realTime": false,
+      "increaseKey": 0,
+      "decreaseKey": 0
+    },
+    "values": [
+      {
+        "type": "Slider",
+        "name": "Time",
+        "min": 0,
+        "max": 24,
+        "increment": 1,
+        "unit": "hours",
+        "config": "time",
+        "default": 12
+      },
+      {
+        "type": "Toggle",
+        "name": "Use real time",
+        "config": "realTime",
+        "default": false
+      },
+      {
+        "type": "Bind",
+        "name": "Increase",
+        "config": "increaseKey",
+        "default": 0
+      },
+      {
+        "type": "Bind",
+        "name": "Decrease",
+        "config": "decreaseKey",
+        "default": 0
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.bedwars.BedESP",
+    "sourceHash": "3f19a0cc69a013f48705d7db8ec0b85f7d9dd56aa83daaf83b8547e649a6b1c5",
+    "name": "BedESP",
+    "category": "Bedwars",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Highlight beds and surrounding obsidian.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "mode": "Full",
+      "showObsidian": true,
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "opacity": 25,
+      "bedwarsOnly": false
+    },
+    "values": [
+      {
+        "type": "Color",
+        "name": "Bed color",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Saturation",
+        "name": "Saturation",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Brightness",
+        "name": "Brightness",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Opacity",
+        "name": "Opacity",
+        "config": "opacity",
+        "default": 25
+      },
+      {
+        "type": "Mode",
+        "name": "Mode",
+        "modes": [
+          "Full",
+          "Outline"
+        ],
+        "config": "mode",
+        "default": "Full"
+      },
+      {
+        "type": "Toggle",
+        "name": "Show obsidian",
+        "config": "showObsidian",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Bedwars only",
+        "config": "bedwarsOnly",
+        "default": false
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.bedwars.HeightOverlay",
+    "sourceHash": "20fe2e51d91fd0fadaaab431e90259b3bc57d1aebfa237b8d13f8ae792f75eb7",
+    "name": "HeightOverlay",
+    "category": "Bedwars",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Displays map height in HUD and colors wool.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "showHud": true,
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "scale": 0.65,
+      "posX": 1,
+      "posY": 1,
+      "woolOverlay": true,
+      "woolColor": "§7Gray"
+    },
+    "values": [
+      {
+        "type": "Color",
+        "name": "Text color",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Saturation",
+        "name": "Saturation",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Brightness",
+        "name": "Brightness",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Toggle",
+        "name": "Show HUD",
+        "config": "showHud",
+        "default": true
+      },
+      {
+        "type": "Slider",
+        "name": "Scale",
+        "min": 0.5,
+        "max": 1.5,
+        "increment": 0.05,
+        "unit": null,
+        "config": "scale",
+        "default": 0.65
+      },
+      {
+        "type": "Toggle",
+        "name": "Show wool overlay",
+        "config": "woolOverlay",
+        "default": true
+      },
+      {
+        "type": "Mode",
+        "name": "Color",
+        "modes": [
+          "§7Gray",
+          "§8Black",
+          "§6Orange"
+        ],
+        "config": "woolColor",
+        "default": "§7Gray"
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.bedwars.ShopHelper",
+    "sourceHash": "d7d508a4d54a8f648beb76bde28e9ba01385ae941e0a422f7d2b2b52b81e569c",
+    "name": "ShopHelper",
+    "category": "Bedwars",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Helps you shop faster by highlighting affordable items, replacing clicks with middle clicks and\npreventing purchasing certain duplicate items.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "highlightAffordable": true,
+      "replaceClicks": true,
+      "preventDuplicate": true,
+      "opacity": 50
+    },
+    "values": [
+      {
+        "type": "Opacity",
+        "name": "Opacity",
+        "config": "opacity",
+        "default": 50
+      },
+      {
+        "type": "Toggle",
+        "name": "Highlight affordable",
+        "config": "highlightAffordable",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Replace clicks",
+        "config": "replaceClicks",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Prevent duplicate",
+        "config": "preventDuplicate",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.utility.NoParticles",
+    "sourceHash": "39025d11e1368939f029ca5dd605f8a39e6660fb81416debb0e11632418f3a0c",
+    "name": "NoParticles",
+    "category": "Utility",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Removes certain particles for visibility and performance.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "removeGlyph": true,
+      "removeSponge": true,
+      "removeBreak": false
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Remove bedwars glyph",
+        "config": "removeGlyph",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Remove bedwars sponge",
+        "config": "removeSponge",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Remove block break",
+        "config": "removeBreak",
+        "default": false
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.bedwars.UpgradeHUD",
+    "sourceHash": "f1463bc75fe9afb96a8069614e9d0ee0d9a5e8ccf72f14936349ea9690643db5",
+    "name": "UpgradeHUD",
+    "category": "Bedwars",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Displays team upgrades on your screen. Only works with English language selected on Hypixel.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "posX": 1,
+      "posY": 1,
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "shortNames": false,
+      "scale": 0.65,
+      "showSharpness": true,
+      "showProtection": true,
+      "showTraps": true,
+      "showFeatherFalling": true,
+      "showHealPool": true,
+      "showForge": true
+    },
+    "values": [
+      {
+        "type": "Color",
+        "name": "Text color",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Saturation",
+        "name": "Saturation",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Brightness",
+        "name": "Brightness",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Slider",
+        "name": "Scale",
+        "min": 0.5,
+        "max": 1.5,
+        "increment": 0.05,
+        "unit": null,
+        "config": "scale",
+        "default": 0.65
+      },
+      {
+        "type": "Toggle",
+        "name": "Short names",
+        "config": "shortNames",
+        "default": false
+      },
+      {
+        "type": "Check",
+        "name": "Show §bSharpness",
+        "config": "showSharpness",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Show §3Protection",
+        "config": "showProtection",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Show §9Traps",
+        "config": "showTraps",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Show §aFeather Falling",
+        "config": "showFeatherFalling",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Show §dHeal Pool",
+        "config": "showHealPool",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Show §7Forge",
+        "config": "showForge",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.DamageTags",
+    "sourceHash": "230cde3bca938b1ef63044ca7589ab0b8819cb0d8c24dbb60504facd8da964eb",
+    "name": "DamageTags",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Displays damage dealt after hitting someone.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "scale": 0.65,
+      "dynamicColor": true,
+      "expireTime": 2,
+      "fadeOut": false,
+      "suffix": true
+    },
+    "values": [
+      {
+        "type": "Color",
+        "name": "Text color",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Saturation",
+        "name": "Saturation",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Brightness",
+        "name": "Brightness",
+        "link": [
+          "red",
+          "green",
+          "blue"
+        ]
+      },
+      {
+        "type": "Slider",
+        "name": "Scale",
+        "min": 0.5,
+        "max": 1.5,
+        "increment": 0.05,
+        "unit": null,
+        "config": "scale",
+        "default": 0.65
+      },
+      {
+        "type": "Slider",
+        "name": "Expire",
+        "min": 0.5,
+        "max": 5,
+        "increment": 0.1,
+        "unit": "s",
+        "config": "expireTime",
+        "default": 2
+      },
+      {
+        "type": "Toggle",
+        "name": "Dynamic color",
+        "config": "dynamicColor",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Fade out",
+        "config": "fadeOut",
+        "default": false
+      },
+      {
+        "type": "Toggle",
+        "name": "Show suffix",
+        "config": "suffix",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.ItemScale",
+    "sourceHash": "eb829af67a0044ef66c0b2d5a2a91e3007ed348da2301278758743e31ad325d7",
+    "name": "ItemScale",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Scale dropped items.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "scale": 2.5,
+      "importantOnly": false,
+      "resources": true,
+      "gear": true,
+      "heads": true
+    },
+    "values": [
+      {
+        "type": "Slider",
+        "name": "Scale",
+        "min": 0.5,
+        "max": 5,
+        "increment": 0.1,
+        "unit": "x",
+        "config": "scale",
+        "default": 2.5
+      },
+      {
+        "type": "Toggle",
+        "name": "Important only",
+        "config": "importantOnly",
+        "default": false
+      },
+      {
+        "type": "Check",
+        "name": "§7Include §bGear",
+        "config": "gear",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§7Include §6Resources",
+        "config": "resources",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "§7Include §dHeads",
+        "config": "heads",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.hypixel.MurdererFinder",
+    "sourceHash": "1d2f4ac1d660711caacf373db5e34b054b63a9b64f44a9b064747f1bd6677975",
+    "name": "MurdererFinder",
+    "category": "Hypixel",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Highlights the murderer and alerts for other relevant roles in Murder Mystery.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "findMurderers": true,
+      "findDetectives": true,
+      "chatAlerts": true,
+      "sound": true,
+      "mode": "3D",
+      "render": "Full",
+      "nameIcons": true
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Mode",
+        "modes": [
+          "3D",
+          "2D"
+        ],
+        "config": "mode",
+        "default": "3D"
+      },
+      {
+        "type": "Mode",
+        "name": "Render",
+        "modes": [
+          "Full",
+          "Outline",
+          "None"
+        ],
+        "config": "render",
+        "default": "Full"
+      },
+      {
+        "type": "Toggle",
+        "name": "Name icons",
+        "config": "nameIcons",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Chat alerts",
+        "config": "chatAlerts",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Ping sound",
+        "config": "sound",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Find murderers",
+        "config": "findMurderers",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Find detectives",
+        "config": "findDetectives",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.utility.Freelook",
+    "sourceHash": "1a9372dc44dada1efae6b75c77d44f90d8dc7f4cdeb4bef3f16822091c3fe50e",
+    "name": "Freelook",
+    "category": "Utility",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Allows you to look around in third person without changing your serverside view.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "freelookKey": 0,
+      "customFov": false,
+      "fov": 70,
+      "startingPos": "Forward",
+      "mode": "Hold"
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Mode",
+        "modes": [
+          "Hold",
+          "Toggle"
+        ],
+        "config": "mode",
+        "default": "Hold"
+      },
+      {
+        "type": "Mode",
+        "name": "Start Position",
+        "modes": [
+          "Forward",
+          "Backwards"
+        ],
+        "config": "startingPos",
+        "default": "Forward"
+      },
+      {
+        "type": "Toggle",
+        "name": "Custom fov",
+        "config": "customFov",
+        "default": false
+      },
+      {
+        "type": "Slider",
+        "name": "Fov",
+        "min": 30,
+        "max": 110,
+        "increment": 5,
+        "unit": null,
+        "config": "fov",
+        "default": 70
+      },
+      {
+        "type": "Bind",
+        "name": "Bind",
+        "config": "freelookKey",
+        "default": 0
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.HealthESP",
+    "sourceHash": "d84291bb8477b72e550f17fffaa068685edcc3334a990ee676bb0b70d46ed4dc",
+    "name": "HealthESP",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Renders a health bar on players.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "showSelf": false
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Show self",
+        "config": "showSelf",
+        "default": false
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.antisnipe.PartyDetector",
+    "sourceHash": "3c26eeb6c12d7e8272da65c80e96b992dd270253f0f715d9957402ab30793654",
+    "name": "PartyDetector",
+    "category": "Antisnipe",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Detects when a party joins your lobby.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "sound": true,
+      "twos": true,
+      "threes": true,
+      "foursNormal": true,
+      "foursTwo": true,
+      "showMissed": true
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Ping sound",
+        "config": "sound",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Show missed players",
+        "config": "showMissed",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Bedwars 2s",
+        "config": "twos",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Bedwars 3s",
+        "config": "threes",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Bedwars 4s",
+        "config": "foursNormal",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Bedwars 4v4",
+        "config": "foursTwo",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.hypixel.NickBot",
+    "sourceHash": "c75b3d158032ec1af7cd68c099f070d99bcba5c043022e14a67722424aa91163",
+    "name": "NickBot",
+    "category": "Hypixel",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Automatically reroll nicks on Hypixel. Press ESC to stop it.\n§d/nickbot §f- For more info about commands",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "delay": 500,
+      "fourChar": true,
+      "maxChar": false,
+      "legacyNicks": true,
+      "customWords": true,
+      "plainText": false,
+      "specialAffix": true,
+      "autoAccept": true,
+      "ignoreLimboKick": false,
+      "listSkippedNicks": false
+    },
+    "values": [
+      {
+        "type": "Slider",
+        "name": "Delay",
+        "min": 0,
+        "max": 2000,
+        "increment": 50,
+        "unit": "ms",
+        "config": "delay",
+        "default": 500
+      },
+      {
+        "type": "Button",
+        "name": "Start",
+        "textScale": 5,
+        "action": "wtf.tatp.meowtils.module.hypixel.NickBot::start"
+      },
+      {
+        "type": "Toggle",
+        "name": "Auto accept good nick",
+        "config": "autoAccept",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Ignore limbo kick",
+        "config": "ignoreLimboKick",
+        "default": false
+      },
+      {
+        "type": "Toggle",
+        "name": "List skipped nicks",
+        "config": "listSkippedNicks",
+        "default": false
+      },
+      {
+        "type": "Check",
+        "name": "Legacy nicks",
+        "config": "legacyNicks",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Four char",
+        "config": "fourChar",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Max char",
+        "config": "maxChar",
+        "default": false
+      },
+      {
+        "type": "Check",
+        "name": "Plain text",
+        "config": "plainText",
+        "default": false
+      },
+      {
+        "type": "Check",
+        "name": "Special affixes",
+        "config": "specialAffix",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Custom words",
+        "config": "customWords",
+        "default": true
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.render.PingHUD",
+    "sourceHash": "a4f519006fc5fd13485a27415b4cd034ee668a14084ba0cfe058e18e60a38d37",
+    "name": "PingHUD",
+    "category": "Render",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Displays your ping.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "posX": 0,
+      "posY": 0,
+      "scale": 0.65,
+      "text": true,
+      "brackets": false,
+      "dynamicColor": true
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Dynamic color",
+        "config": "dynamicColor",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Text",
+        "config": "text",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Brackets",
+        "config": "brackets",
+        "default": false
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.advanced.GhostHand",
+    "sourceHash": "acecdee7d7fbef2e1acdcb26779761ac8e82782657bc4a10ec173ddfe900a9d2",
+    "name": "GhostHand",
+    "category": "Advanced",
+    "alwaysEnabled": false,
+    "tag": "BLATANT",
+    "tooltip": "Allows you to interact through entities.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "interactTeammates": true,
+      "interactEnemies": false,
+      "interactArmorstands": false,
+      "useItemWhitelist": true,
+      "swords": false,
+      "tools": true,
+      "hand": true,
+      "blocks": false,
+      "buckets": false,
+      "flintAndSteel": false,
+      "useBlockWhitelist": false,
+      "beds": true,
+      "obsidian": true,
+      "defenseBlocks": true,
+      "chests": true,
+      "bedwarsOnly": false,
+      "transparent": "None"
+    },
+    "values": [
+      {
+        "type": "Mode",
+        "name": "Transparent",
+        "modes": [
+          "Always",
+          "None"
+        ],
+        "config": "transparent",
+        "default": "None"
+      },
+      {
+        "type": "Toggle",
+        "name": "Use item whitelist",
+        "config": "useItemWhitelist",
+        "default": true
+      },
+      {
+        "type": "Toggle",
+        "name": "Use block whitelist",
+        "config": "useBlockWhitelist",
+        "default": false
+      },
+      {
+        "type": "Toggle",
+        "name": "Bedwars only",
+        "config": "bedwarsOnly",
+        "default": false
+      },
+      {
+        "type": "Check",
+        "name": "Through teammates",
+        "config": "interactTeammates",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "Through enemies",
+        "config": "interactEnemies",
+        "default": false
+      },
+      {
+        "type": "Check",
+        "name": "Through armorstands",
+        "config": "interactArmorstands",
+        "default": false
+      },
+      {
+        "type": "Expand",
+        "name": "Item whitelist",
+        "children": [
+          {
+            "type": "Check",
+            "name": "§bSwords",
+            "config": "swords",
+            "default": false
+          },
+          {
+            "type": "Check",
+            "name": "§6Tools",
+            "config": "tools",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§eHand",
+            "config": "hand",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Blocks",
+            "config": "blocks",
+            "default": false
+          },
+          {
+            "type": "Check",
+            "name": "§9Buckets",
+            "config": "buckets",
+            "default": false
+          },
+          {
+            "type": "Check",
+            "name": "§7Flint and steel",
+            "config": "flintAndSteel",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "Block whitelist",
+        "children": [
+          {
+            "type": "Check",
+            "name": "§cBeds",
+            "config": "beds",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§8Obsidian",
+            "config": "obsidian",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "Defense blocks",
+            "config": "defenseBlocks",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "§6Chests",
+            "config": "chests",
+            "default": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.utility.ChatFilter",
+    "sourceHash": "ac0c79d74abe1500b448b431e8e200e118c3b37af2c17932e4616579ab808466",
+    "name": "ChatFilter",
+    "category": "Utility",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Removes filtered messages.\n§d/meowfilter §f- Show commands",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "selectedFilter": "default"
+    },
+    "values": [
+      {
+        "type": "Text",
+        "name": null,
+        "config": "selectedFilter",
+        "description": "Filter name",
+        "default": "default"
+      },
+      {
+        "type": "Button",
+        "name": "Open folder",
+        "textScale": 5,
+        "action": "() -> {\n            wtf.tatp.meowtils.util.Util.openFolder(FILTER_DIR, \"filter\");\n        }"
+      },
+      {
+        "type": "Button",
+        "name": "Reload",
+        "textScale": 5,
+        "action": "() -> {\n            reloadFilter();\n            wtf.tatp.meowtils.Meowtils.addMessage(\"Reloaded filter: \" + net.minecraft.util.EnumChatFormatting.GREEN.toString() + net.minecraft.util.EnumChatFormatting.ITALIC + this.selectedFilter);\n        }"
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.antisnipe.AutoBlacklist",
+    "sourceHash": "d414fac9050155449d8f03918a26db9d2e44543db24c364438ea183952fb5683",
+    "name": "AutoBlacklist",
+    "category": "Antisnipe",
+    "alwaysEnabled": false,
+    "tag": "LEGIT",
+    "tooltip": "Automatically adds players to the blacklist for selected events.\n§cNOTE: Some features require AntiCheat module to be enabled.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "showNotifications": true,
+      "forFlags": true,
+      "flagAutoblock": true,
+      "flagNoslow": true,
+      "flagKillaura": true,
+      "flagLegitScaffold": true,
+      "forReports": true,
+      "whenReportCommand": true,
+      "whenWdrCommand": true
+    },
+    "values": [
+      {
+        "type": "Toggle",
+        "name": "Show notifications",
+        "config": "showNotifications",
+        "default": true
+      },
+      {
+        "type": "Expand",
+        "name": "For flags",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "forFlags",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "When flags §cAutoBlock",
+            "config": "flagAutoblock",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "When flags §cNoSlow",
+            "config": "flagNoslow",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "When flags §cKillaura",
+            "config": "flagKillaura",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "When flags §cLegit Scaffold",
+            "config": "flagLegitScaffold",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "Expand",
+        "name": "For reports",
+        "children": [
+          {
+            "type": "Toggle",
+            "name": "Enabled",
+            "config": "forReports",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "When §b/report",
+            "config": "whenReportCommand",
+            "default": true
+          },
+          {
+            "type": "Check",
+            "name": "When §b/wdr",
+            "config": "whenWdrCommand",
+            "default": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "wtf.tatp.meowtils.module.bedwars.PickupAlerts",
+    "sourceHash": "f40c705fb3be4aa35429cab1ad334740a3137810a395279a33f4fa0b9deb1d21",
+    "name": "PickupAlerts",
+    "category": "Bedwars",
+    "alwaysEnabled": false,
+    "tag": "SAFE",
+    "tooltip": "Alerts you when someone picks up a resource.",
+    "defaults": {
+      "enabled": false,
+      "key": 0,
+      "cooldown": 2,
+      "pingSound": true,
+      "iron": false,
+      "gold": false,
+      "diamonds": true,
+      "emeralds": true
+    },
+    "values": [
+      {
+        "type": "Slider",
+        "name": "Cooldown",
+        "min": 0,
+        "max": 10,
+        "increment": 1,
+        "unit": "s",
+        "config": "cooldown",
+        "default": 2
+      },
+      {
+        "type": "Toggle",
+        "name": "Ping sound",
+        "config": "pingSound",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "For §7Iron Ingots",
+        "config": "iron",
+        "default": false
+      },
+      {
+        "type": "Check",
+        "name": "For §6Gold Ingots",
+        "config": "gold",
+        "default": false
+      },
+      {
+        "type": "Check",
+        "name": "For §bDiamonds",
+        "config": "diamonds",
+        "default": true
+      },
+      {
+        "type": "Check",
+        "name": "For §2Emeralds",
+        "config": "emeralds",
+        "default": true
+      }
+    ]
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "crit": {
+    "sounds": [
+      "meowtils:crit/crit1",
+      "meowtils:crit/crit2",
+      "meowtils:crit/crit3"
+    ]
+  }
+}

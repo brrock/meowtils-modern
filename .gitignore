@@ -1,0 +1,12 @@
+.gradle/
+build/
+bin/
+docs/site/
+out/
+.idea/
+*.iml
+.DS_Store
+logs/
+.codex-rescue/
+run/
+*.log

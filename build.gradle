@@ -1,0 +1,73 @@
+plugins {
+    id 'java'
+    id 'net.fabricmc.fabric-loom' version '1.17.20'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.12.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.12.2'
+}
+
+test { useJUnitPlatform() }
+
+loom {
+    // Minecraft 26.2+ is distributed non-obfuscated; intentionally no mappings.
+}
+
+// This is a client-only mod; keep the public SDK and implementation on one classpath
+// so extension authors can compile against the same artifact.
+sourceSets.main.java.srcDir 'src/client/java'
+
+sourceSets {
+    autoupdate {
+        java.srcDir 'src/autoupdate/java'
+    }
+}
+
+def targetJava = 25
+tasks.withType(JavaCompile).configureEach {
+    options.release = targetJava
+    options.encoding = 'UTF-8'
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+processResources {
+    def githubRepo = project.findProperty('github_repo') ?: 'brrock/meowtils-modern'
+    inputs.property 'version', project.version
+    inputs.property 'github_repo', githubRepo
+    filesMatching(['fabric.mod.json', 'meowtils-build.properties']) {
+        expand 'version': project.version, 'github_repo': githubRepo
+    }
+}
+
+tasks.register('autoupdateJar', Jar) {
+    dependsOn compileAutoupdateJava
+    archiveFileName = 'MeowtilsAutoUpdate.jar'
+    from sourceSets.autoupdate.output
+    manifest {
+        attributes 'Main-Class': 'wtf.tatp.meowtils.update.MeowtilsAutoUpdate'
+    }
+}
+
+tasks.named('build') {
+    dependsOn 'autoupdateJar'
+}

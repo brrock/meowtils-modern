@@ -1,0 +1,23 @@
+.md-tag--blatant {
+    color: #ff1744;
+}
+
+.md-tag--blatant::before {
+    background-color: #ff1744 !important;
+}
+
+.md-tag--legit {
+    color: #00c853;
+}
+
+.md-tag--legit::before {
+    background-color: #00c853 !important;
+}
+
+.md-tag--safe {
+    color: #00b0ff;
+}
+
+.md-tag--safe::before {
+    background-color: #00b0ff !important;
+}

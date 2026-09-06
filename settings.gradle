@@ -1,0 +1,12 @@
+pluginManagement {
+    repositories {
+        maven { url = uri("https://maven.fabricmc.net/") }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "meowtils"
+
+include 'hello-extension'
+project(':hello-extension').projectDir = file('examples/hello-extension')
