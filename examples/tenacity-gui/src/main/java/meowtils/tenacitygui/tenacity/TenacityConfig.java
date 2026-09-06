@@ -50,7 +50,6 @@ public final class TenacityConfig {
                      module.theme = string(root, "theme", module.theme);
                      module.transparent = bool(root, "transparent", module.transparent);
                      module.outlineAccent = bool(root, "outlineAccent", module.outlineAccent);
-                     module.rescale = bool(root, "rescale", module.rescale);
                      module.scrollMode = string(root, "scrollMode", module.scrollMode);
                      module.clickHeight = (float)number(root, "clickHeight", module.clickHeight);
                      module.color1R = (int)number(root, "color1R", module.color1R);
@@ -116,7 +115,6 @@ public final class TenacityConfig {
                root.addProperty("theme", module.theme);
                root.addProperty("transparent", module.transparent);
                root.addProperty("outlineAccent", module.outlineAccent);
-               root.addProperty("rescale", module.rescale);
                root.addProperty("scrollMode", module.scrollMode);
                root.addProperty("clickHeight", module.clickHeight);
                root.addProperty("color1R", module.color1R);
@@ -165,8 +163,6 @@ public final class TenacityConfig {
          .append(m.transparent)
          .append('|')
          .append(m.outlineAccent)
-         .append('|')
-         .append(m.rescale)
          .append('|')
          .append(m.scrollMode)
          .append('|')

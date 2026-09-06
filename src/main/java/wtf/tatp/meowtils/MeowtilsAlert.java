@@ -53,10 +53,10 @@ public final class MeowtilsAlert {
 
     private static void documentationMessage() {
         var message = Component.literal(Prefix.getPrefix() + "Read the full documentation at "
-                + ChatFormatting.LIGHT_PURPLE + ChatFormatting.UNDERLINE + "docs.tatp.wtf"
+                + ChatFormatting.LIGHT_PURPLE + ChatFormatting.UNDERLINE + "brrock.github.io/meowtils-modern"
                 + ChatFormatting.WHITE + ".");
         message.setStyle(Style.EMPTY
-                .withClickEvent(new ClickEvent.OpenUrl(URI.create("https://docs.tatp.wtf/")))
+                .withClickEvent(new ClickEvent.OpenUrl(URI.create("https://brrock.github.io/meowtils-modern/")))
                 .withUnderlined(true));
         Meowtils.addChat(message);
     }

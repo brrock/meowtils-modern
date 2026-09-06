@@ -15,7 +15,7 @@ public final class GuiHook implements AutoCloseable {
   int count=ModuleManager.getModules().size();if(count!=moduleCount){moduleCount=count;TenacityClickGUI.invalidate();}
   var mc=Minecraft.getInstance();
   if(settings.getState() && mc.gui.screen() instanceof ClickGuiScreen){if(screen==null)screen=new TenacityClickGUI();mc.gui.setScreen(screen);}
-  else if(!settings.getState() && mc.gui.screen() instanceof TenacityClickGUI){TenacityClickGUI.restoreGuiScale();mc.gui.setScreen(new ClickGuiScreen());}
+  else if(!settings.getState() && mc.gui.screen() instanceof TenacityClickGUI)mc.gui.setScreen(new ClickGuiScreen());
  }
- public static void restore(){TenacityClickGUI.restoreGuiScale();var mc=Minecraft.getInstance();if(mc.gui.screen() instanceof TenacityClickGUI)mc.gui.setScreen(null);}
+ public static void restore(){var mc=Minecraft.getInstance();if(mc.gui.screen() instanceof TenacityClickGUI)mc.gui.setScreen(null);}
 }

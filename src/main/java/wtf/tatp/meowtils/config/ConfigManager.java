@@ -29,18 +29,24 @@ public final class ConfigManager {
                 if (restored != null) guiConfig = restored;
             }
             for (Module module : ModuleManager.getModules()) {
-                JsonObject data = root.has(module.getName()) ? root.getAsJsonObject(module.getName()) : null;
-                if (data == null) continue;
-                if (data.has("enabled") && !module.alwaysEnabled) module.setState(data.get("enabled").getAsBoolean());
-                loadFields(module, data);
-                module.syncLegacyStateFromFields();
-                if (data.has("key")) module.setKey(data.get("key").getAsInt());
-                for (Object raw : module.getAllValues()) {
-                    if (!(raw instanceof Value<?> value) || value.getConfig() == null || !data.has(value.getConfig())) continue;
-                    setValue(value, data.get(value.getConfig()));
-                }
+                try {
+                    JsonObject data = root.has(module.getName()) ? root.getAsJsonObject(module.getName()) : null;
+                    if (data == null) continue;
+                    loadFields(module, data);
+                    if (data.has("key")) module.setKey(data.get("key").getAsInt());
+                    for (Object raw : module.getAllValues()) {
+                        if (!(raw instanceof Value<?> value) || value.getConfig() == null || !data.has(value.getConfig())) continue;
+                        try { setValue(value, data.get(value.getConfig())); }
+                        catch (RuntimeException exception) { reportInvalid(module, value.getConfig(), exception); }
+                    }
+                    // Enable only after restoring settings, so onEnable sees the saved values.
+                    if (data.has("enabled") && !module.alwaysEnabled) module.setState(data.get("enabled").getAsBoolean());
+                } catch (Exception exception) { reportInvalid(module, "module", exception); }
             }
         } catch (Exception exception) { System.err.println("Meowtils: unable to load config: " + exception); }
+    }
+    private static void reportInvalid(Module module, String key, Exception exception) {
+        System.err.println("Meowtils: unable to restore " + module.getName() + "." + key + ": " + exception);
     }
     private static void loadFields(Module module, JsonObject data) throws IllegalAccessException {
         for (Class<?> type = module.getClass(); type != null && type != Object.class; type = type.getSuperclass()) {
@@ -48,13 +54,16 @@ public final class ConfigManager {
                 Config annotation = field.getAnnotation(Config.class);
                 String key = annotation == null ? null : annotation.value().isBlank() ? field.getName() : annotation.value();
                 if (key == null || !data.has(key)) continue;
-                field.setAccessible(true); JsonElement json = data.get(key); Class<?> kind = field.getType();
-                if (kind == boolean.class || kind == Boolean.class) field.set(module, json.getAsBoolean());
-                else if (kind == int.class || kind == Integer.class) field.set(module, json.getAsInt());
-                else if (kind == long.class || kind == Long.class) field.set(module, json.getAsLong());
-                else if (kind == float.class || kind == Float.class) field.set(module, json.getAsFloat());
-                else if (kind == double.class || kind == Double.class) field.set(module, json.getAsDouble());
-                else if (kind == String.class) field.set(module, json.getAsString());
+                if (key.equals("enabled") || key.equals("key")) continue;
+                try {
+                    field.setAccessible(true); JsonElement json = data.get(key); Class<?> kind = field.getType();
+                    if (kind == boolean.class || kind == Boolean.class) field.set(module, json.getAsBoolean());
+                    else if (kind == int.class || kind == Integer.class) field.set(module, json.getAsInt());
+                    else if (kind == long.class || kind == Long.class) field.set(module, json.getAsLong());
+                    else if (kind == float.class || kind == Float.class) field.set(module, json.getAsFloat());
+                    else if (kind == double.class || kind == Double.class) field.set(module, json.getAsDouble());
+                    else if (kind == String.class) field.set(module, json.getAsString());
+                } catch (RuntimeException exception) { reportInvalid(module, key, exception); }
             }
         }
     }

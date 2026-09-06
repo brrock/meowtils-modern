@@ -35,8 +35,6 @@ public class TenacityGuiModule extends Extension {
    @Config
    public float clickHeight = 200.0F;
    @Config
-   public boolean rescale = false;
-   @Config
    public int color1R = 97;
    @Config
    public int color1G = 194;
@@ -125,7 +123,6 @@ public class TenacityGuiModule extends Extension {
       }, this));
       host.addToggle(new ToggleValue("Transparent", "transparent", this));
       host.addToggle(new ToggleValue("Outline accent", "outlineAccent", this));
-      host.addToggle(new ToggleValue("Rescale GUI", "rescale", this));
       host.addMode(new ModeValue("Scroll mode", Arrays.asList("Screen", "Value"), "scrollMode", this));
       host.addSlider(new SliderValue("Panel height", 100.0, 500.0, 5.0, "px", "clickHeight", this, float.class));
    }

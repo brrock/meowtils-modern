@@ -38,7 +38,6 @@ public final class ValueAdapter {
       "Custom theme",
       "Transparent",
       "Outline accent",
-      "Rescale GUI",
       "GUI Scale",
       "Features",
       "Show tooltips",

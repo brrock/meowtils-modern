@@ -5,7 +5,7 @@ tags:
 
 # **HealthESP**
 
-#### Renders a health bar ESP on players.
+#### Renders a health bar ESP on players, visible through walls.
 
 ---
 

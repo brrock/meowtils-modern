@@ -38,6 +38,15 @@ public final class WorldOverlay {
         event.submitFilled(world.move(-cam.x, -cam.y, -cam.z), color);
     }
 
+    /** Translucent bed fill with a strong perimeter, both visible through terrain. */
+    public static void espBox(RenderWorldLastEvent event, AABB world, int color, boolean fill) {
+        if ((color >>> 24) == 0) return;
+        Vec3 cam = camera();
+        AABB relative = world.move(-cam.x, -cam.y, -cam.z);
+        if (fill) event.submitEspFilled(relative, color);
+        event.submitEspOutline(relative, color | 0xFF000000, 2.5f);
+    }
+
     /** Alias for other modules / agents that want a {@code submitFilled} call site. */
     public static void submitFilled(RenderWorldLastEvent event, AABB world, int color) {
         filledBox(event, world, color);
@@ -141,9 +150,9 @@ public final class WorldOverlay {
         pose.mulPose(Axis.YP.rotationDegrees(-view.yRot()));
         pose.translate(0.0f, 0.0f, -0.12f);
         pose.scale(0.03f, 0.03f, 0.03f);
-        event.submitBillboardQuad(21, -1, 25, 75, 0xFF000000);
-        if (barHeight < 74) event.submitBillboardQuad(22, barHeight, 24, 74, 0xFF404040);
-        if (barHeight > 0) event.submitBillboardQuad(22, 0, 24, barHeight, fill);
+        event.submitBillboardQuad(20, -1, 26, 75, 0xFF000000, true);
+        if (barHeight < 74) event.submitBillboardQuad(21, barHeight, 25, 74, 0xFF404040, true);
+        if (barHeight > 0) event.submitBillboardQuad(21, 0, 25, barHeight, fill, true);
         pose.popPose();
     }
 

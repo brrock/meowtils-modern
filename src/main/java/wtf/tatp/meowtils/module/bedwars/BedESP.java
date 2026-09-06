@@ -67,14 +67,12 @@ public final class BedESP extends Module {
         for (BlockPos key : BEDS) {
             AABB box = boxFor(key);
             if (box == null) continue;
-            if (fill) WorldOverlay.filledBox(event, box, bedColor);
-            else WorldOverlay.outline(event, box, bedColor, 1.5f);
+            WorldOverlay.espBox(event, box, bedColor, fill);
         }
         if (!Settings.bool(this, "showObsidian", true)) return;
         for (BlockPos pos : OBSIDIAN) {
             AABB box = new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
-            if (fill) WorldOverlay.filledBox(event, box, obsidianColor);
-            else WorldOverlay.outline(event, box, obsidianColor, 1.5f);
+            WorldOverlay.espBox(event, box, obsidianColor, fill);
         }
     }
 

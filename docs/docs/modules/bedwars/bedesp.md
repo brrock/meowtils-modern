@@ -19,17 +19,17 @@ Changes the color of the ESP box.
 
 ## Opacity
 
-Changes the opacity of the ESP.
+Changes the opacity of the ESP fill. The outline stays opaque for visibility; zero opacity hides both.
 
 ## Mode
 
 ### Full
 
-Renders filled ESP boxes.
+Renders filled ESP boxes with a strong outline, visible through walls.
 
 ### Outline
 
-Only renders outlined ESP boxes.
+Only renders outlined ESP boxes, visible through walls.
 
 ## Show obsidian
 

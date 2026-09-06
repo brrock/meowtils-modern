@@ -34,12 +34,26 @@ public class WorldRenderEvent extends Event {
                 (pose, consumer) -> emitFilledBox(pose, consumer, cameraRelativeBox, color));
     }
 
+    public void submitEspFilled(AABB cameraRelativeBox, int color) {
+        getOrderedSubmitNodeCollector().submitCustomGeometry(getPoseStack(), EspRenderTypes.FILL,
+                (pose, consumer) -> emitFilledBox(pose, consumer, cameraRelativeBox, color));
+    }
+
+    public void submitEspOutline(AABB cameraRelativeBox, int color, float width) {
+        getOrderedSubmitNodeCollector().submitShapeOutline(getPoseStack(), Shapes.create(cameraRelativeBox),
+                EspRenderTypes.LINES, color, width, true);
+    }
+
     /** Camera-relative (or pose-local) axis-aligned quad on {@link RenderTypes#debugQuads()}. */
     public void submitBillboardQuad(float x1, float y1, float x2, float y2, int color) {
+        submitBillboardQuad(x1, y1, x2, y2, color, false);
+    }
+
+    public void submitBillboardQuad(float x1, float y1, float x2, float y2, int color, boolean throughWalls) {
         float minX = Math.min(x1, x2), maxX = Math.max(x1, x2);
         float minY = Math.min(y1, y2), maxY = Math.max(y1, y2);
         if (maxX - minX < 1.0e-4f || maxY - minY < 1.0e-4f) return;
-        getOrderedSubmitNodeCollector().submitCustomGeometry(getPoseStack(), RenderTypes.debugQuads(),
+        getOrderedSubmitNodeCollector().submitCustomGeometry(getPoseStack(), throughWalls ? EspRenderTypes.FILL : RenderTypes.debugQuads(),
                 (pose, consumer) -> emitQuad(consumer, pose, minX, maxY, 0, maxX, maxY, 0, maxX, minY, 0, minX, minY, 0, color));
     }
 

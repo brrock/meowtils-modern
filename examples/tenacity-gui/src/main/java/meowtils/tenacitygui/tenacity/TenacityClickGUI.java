@@ -41,9 +41,9 @@ public class TenacityClickGUI extends Screen {
    public static boolean gradient;
    private static final Identifier BLUR_SHADER = Identifier.fromNamespaceAndPath("minecraft", "shaders/post/blur.json");
    private boolean blurActive;
-   private static int savedGuiScale = -1;
    private int eventButton = -1;
    private long lastMouseEvent;
+   private static final float TARGET_GUI_SCALE = 2.0F;
    private static final int OFFSCREEN = -1073741824;
 
    public TenacityClickGUI() {
@@ -84,7 +84,6 @@ public class TenacityClickGUI extends Screen {
    @Override public void init() {
       Keyboard.enableRepeatEvents(true);
       Fonts.init();
-      this.applyRescale();
       this.applyBlur();
       this.openingAnimations.use((fade, opening) -> {
          fade.setDirection(Direction.FORWARDS);
@@ -147,6 +146,9 @@ public class TenacityClickGUI extends Screen {
       }
 
       this.binding = this.binding || SEARCH_BAR.isTyping();
+      ScaledResolution sr = new ScaledResolution(this.minecraft);
+      mouseX = this.layoutMouseX(mouseX, sr);
+      mouseY = this.layoutMouseY(mouseY, sr);
       this.onDrag(mouseX, mouseY);
       if (this.openingAnimations.getSecond().finished(Direction.BACKWARDS)) {
          this.minecraft.gui.setScreen(null);
@@ -156,29 +158,68 @@ public class TenacityClickGUI extends Screen {
          boolean focusedConfigGui = SEARCH_BAR.isTyping();
          int fakeMouseX = focusedConfigGui ? 0 : mouseX;
          int fakeMouseY = focusedConfigGui ? 0 : mouseY;
-         ScaledResolution sr = new ScaledResolution(this.minecraft);
-         RenderUtil.scaleStart(sr.func_78326_a() / 2.0F, sr.func_78328_b() / 2.0F, this.openingAnimations.getSecond().getOutput().floatValue() + 0.6F);
-         CategoryPanel hovered = this.topPanelAt(fakeMouseX, fakeMouseY);
-
-         for (CategoryPanel catPanels : this.categoryPanels) {
-            boolean visible = catPanels == hovered;
-            catPanels.drawScreen(visible ? fakeMouseX : -1073741824, visible ? fakeMouseY : -1073741824);
+         float layoutScale = this.layoutScale(sr);
+         if (layoutScale != 1.0F) {
+            RenderUtil.scaleStart(sr.func_78326_a() / 2.0F, sr.func_78328_b() / 2.0F, layoutScale);
          }
 
-         RenderUtil.scaleEnd();
+         try {
+            RenderUtil.scaleStart(sr.func_78326_a() / 2.0F, sr.func_78328_b() / 2.0F, this.openingAnimations.getSecond().getOutput().floatValue() + 0.6F);
+            CategoryPanel hovered = this.topPanelAt(fakeMouseX, fakeMouseY);
 
-         for (CategoryPanel categoryPanel : this.categoryPanels) {
-            boolean visible = categoryPanel == hovered;
-            categoryPanel.drawToolTips(visible ? fakeMouseX : -1073741824, visible ? fakeMouseY : -1073741824);
+            for (CategoryPanel catPanels : this.categoryPanels) {
+               boolean visible = catPanels == hovered;
+               catPanels.drawScreen(visible ? fakeMouseX : OFFSCREEN, visible ? fakeMouseY : OFFSCREEN);
+            }
+
+            RenderUtil.scaleEnd();
+
+            for (CategoryPanel categoryPanel : this.categoryPanels) {
+               boolean visible = categoryPanel == hovered;
+               categoryPanel.drawToolTips(visible ? fakeMouseX : OFFSCREEN, visible ? fakeMouseY : OFFSCREEN);
+            }
+
+            SEARCH_BAR.setAlpha(this.openingAnimations.getFirst().getOutput().floatValue());
+            SEARCH_BAR.drawScreen(fakeMouseX, fakeMouseY);
+            this.layoutHudEditorButton(sr);
+            this.hudEditorButton.alpha = this.openingAnimations.getFirst().getOutput().floatValue();
+            this.hudEditorButton.setColor(new Color(35, 37, 43));
+            this.hudEditorButton.drawScreen(mouseX, mouseY);
+         } finally {
+            if (layoutScale != 1.0F) {
+               RenderUtil.scaleEnd();
+            }
          }
-
-         SEARCH_BAR.setAlpha(this.openingAnimations.getFirst().getOutput().floatValue());
-         SEARCH_BAR.drawScreen(fakeMouseX, fakeMouseY);
-         this.layoutHudEditorButton(sr);
-         this.hudEditorButton.alpha = this.openingAnimations.getFirst().getOutput().floatValue();
-         this.hudEditorButton.setColor(new Color(35, 37, 43));
-         this.hudEditorButton.drawScreen(mouseX, mouseY);
       }
+   }
+
+   private float layoutScale(ScaledResolution sr) {
+      return TARGET_GUI_SCALE / Math.max(1.0F, sr.func_78325_e());
+   }
+
+   private int layoutMouseX(int mouseX, ScaledResolution sr) {
+      float scale = this.layoutScale(sr);
+      if (scale == 1.0F) {
+         return mouseX;
+      }
+
+      float center = sr.func_78326_a() / 2.0F;
+      return Math.round(center + (mouseX - center) / scale);
+   }
+
+   private int layoutMouseY(int mouseY, ScaledResolution sr) {
+      float scale = this.layoutScale(sr);
+      if (scale == 1.0F) {
+         return mouseY;
+      }
+
+      float center = sr.func_78328_b() / 2.0F;
+      return Math.round(center + (mouseY - center) / scale);
+   }
+
+   private int[] layoutMouse(int mouseX, int mouseY) {
+      ScaledResolution sr = new ScaledResolution(this.minecraft);
+      return new int[]{this.layoutMouseX(mouseX, sr), this.layoutMouseY(mouseY, sr)};
    }
 
    private CategoryPanel topPanelAt(int mouseX, int mouseY) {
@@ -200,6 +241,9 @@ public class TenacityClickGUI extends Screen {
    }
 
    protected void func_73864_a(int mouseX, int mouseY, int mouseButton) {
+      int[] mouse = this.layoutMouse(mouseX, mouseY);
+      mouseX = mouse[0];
+      mouseY = mouse[1];
       this.layoutHudEditorButton(new ScaledResolution(this.minecraft));
       this.hudEditorButton.mouseClicked(mouseX, mouseY, mouseButton);
       SEARCH_BAR.mouseClicked(mouseX, mouseY, mouseButton);
@@ -216,29 +260,13 @@ public class TenacityClickGUI extends Screen {
    }
 
    protected void func_146286_b(int mouseX, int mouseY, int state) {
+      int[] mouse = this.layoutMouse(mouseX, mouseY);
+      mouseX = mouse[0];
+      mouseY = mouse[1];
       SEARCH_BAR.mouseReleased(mouseX, mouseY, state);
 
       for (CategoryPanel cat : this.categoryPanels) {
          cat.mouseReleased(mouseX, mouseY, state);
-      }
-   }
-
-   private void applyRescale() {
-      TenacityGuiModule settings = TenacityGuiModule.get();
-      if (settings != null && settings.rescale && savedGuiScale == -1 && minecraft.options.guiScale().get() != 2) {
-         savedGuiScale = minecraft.options.guiScale().get();
-         minecraft.options.guiScale().set(2);
-         minecraft.resizeGui();
-      }
-   }
-
-   public static void restoreGuiScale() {
-      if (savedGuiScale != -1) {
-         int previous = savedGuiScale;
-         savedGuiScale = -1;
-         Minecraft mc = Minecraft.getInstance();
-         mc.options.guiScale().set(previous);
-         mc.resizeGui();
       }
    }
 
@@ -254,7 +282,7 @@ public class TenacityClickGUI extends Screen {
       Keyboard.enableRepeatEvents(false);
       MCategory.savePositions();
       TenacityConfig.forceSave();
-      TenacityClickGUI.restoreGuiScale();
+      wtf.tatp.meowtils.config.ConfigManager.save();
       this.clearBlur();
    }
    @Override public void extractRenderState(GuiGraphicsExtractor graphics,int mouseX,int mouseY,float delta){
@@ -266,7 +294,7 @@ public class TenacityClickGUI extends Screen {
    }
    @Override public boolean mouseClicked(MouseButtonEvent event,boolean twice){func_73864_a((int)event.x(),(int)event.y(),event.button());return true;}
    @Override public boolean mouseReleased(MouseButtonEvent event){func_146286_b((int)event.x(),(int)event.y(),event.button());return true;}
-   @Override public boolean mouseDragged(MouseButtonEvent event,double x,double y){onDrag((int)event.x(),(int)event.y());return true;}
+   @Override public boolean mouseDragged(MouseButtonEvent event,double x,double y){int[] mouse=this.layoutMouse((int)event.x(),(int)event.y());onDrag(mouse[0],mouse[1]);return true;}
    @Override public boolean mouseScrolled(double x,double y,double horizontal,double vertical){Mouse.wheel+=(int)(vertical*120);return true;}
    @Override public boolean keyPressed(KeyEvent event){func_73869_a('\0',Keyboard.legacy(event.key()));return true;}
    @Override public boolean charTyped(CharacterEvent event){for(char c:Character.toChars(event.codepoint()))func_73869_a(c,0);return true;}

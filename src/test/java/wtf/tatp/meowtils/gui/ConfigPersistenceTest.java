@@ -8,6 +8,51 @@ import wtf.tatp.meowtils.gui.values.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ConfigPersistenceTest {
+    static final class SavedExtension extends wtf.tatp.meowtils.extension.Extension {
+        @Config public boolean enabled;
+        @Config public int amount = 3;
+        int amountOnEnable;
+        SavedExtension() {
+            super("Z Saved Extension", "test");
+            slider("Amount", 0, 20, 1, null, "amount", int.class);
+            expand("Nested", values -> values.addText(new TextValue("Message", "message", this)));
+        }
+        @Override public void onEnable() { amountOnEnable = amount; }
+    }
+
+    @Test void extensionReloadSurvivesInvalidEarlierSetting(@TempDir Path dir) throws Exception {
+        Module outdated = new Module("A Outdated", Module.Category.Utility) {};
+        outdated.addMode(new ModeValue("Mode", java.util.List.of("Current"), "mode", outdated));
+        SavedExtension original = new SavedExtension();
+        ModuleManager.register(outdated, original);
+        SavedExtension restored = null;
+        try {
+            ConfigManager.initialize(dir);
+            original.amount = 17;
+            original.settingsStorage().put("message", "keep this");
+            original.setKey(81);
+            original.setState(true);
+            ConfigManager.save();
+            Path file = dir.resolve("meowtils/config.json");
+            String json = java.nio.file.Files.readString(file).replace("\"Current\"", "\"Removed mode\"");
+            java.nio.file.Files.writeString(file, json);
+            ModuleManager.unregister(original);
+            restored = new SavedExtension();
+            ModuleManager.register(restored);
+            ConfigManager.load();
+            assertEquals(17, restored.amount);
+            assertEquals(17, restored.amountOnEnable);
+            assertEquals("keep this", restored.settingsStorage().get("message"));
+            assertEquals(81, restored.getKey());
+            assertTrue(restored.getState());
+            assertTrue(restored.enabled);
+        } finally {
+            ModuleManager.unregister(outdated);
+            ModuleManager.unregister(original);
+            if (restored != null) ModuleManager.unregister(restored);
+        }
+    }
+
     static final class Example extends Module {
         @Config public boolean checked=true;
         @Config public int count=7, posX=11, posY=12;
