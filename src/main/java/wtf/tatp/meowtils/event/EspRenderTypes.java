@@ -3,6 +3,7 @@ package wtf.tatp.meowtils.event;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import java.util.Optional;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.resources.Identifier;
 import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
 
@@ -15,7 +16,7 @@ public final class EspRenderTypes {
 
     private static RenderType create(String name, RenderPipeline.Snippet snippet) {
         RenderPipeline pipeline = RenderPipelines.register(RenderPipeline.builder(snippet)
-                .withLocation("meowtils:pipeline/" + name)
+                .withLocation(Identifier.fromNamespaceAndPath("meowtils", "pipeline/" + name))
                 .withDepthStencilState(Optional.empty())
                 .withCull(false)
                 .build());
