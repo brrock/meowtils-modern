@@ -2,7 +2,7 @@
 
 **Meowtils** is a client-side Fabric utility mod for **Minecraft 26.2**. This is the modern port of Meowtils 2.0.1: the same modules, Click GUI, commands, and extension API, rebuilt on named 26.2 APIs instead of Forge 1.8.9.
 
-![Meowtils GUI](assets/meowtils-gui.png)
+![Meowtils Click GUI](assets/image.png)
 
 ## This version
 

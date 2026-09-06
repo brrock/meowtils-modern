@@ -1,7 +1,9 @@
 # Meowtils Modern
-
 Client-side [Fabric](https://fabricmc.net/) port of Meowtils 2.0.1 for **Minecraft 26.2**.
 [Docs](https://brrock.github.io/meowtils-modern/) skidded ofc
+
+![Meowtils Click GUI](image.png)
+
 ## Requirements
 
 - Minecraft 26.2
