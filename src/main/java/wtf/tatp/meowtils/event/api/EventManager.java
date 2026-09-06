@@ -38,6 +38,12 @@ public final class EventManager {
         if (removed) rebuild();
     }
 
+    public static boolean hasListeners(Class<? extends Event> eventType) {
+        for (var bucket : index) for (Class<?> type : typesOf(eventType))
+            if (bucket.containsKey(type)) return true;
+        return false;
+    }
+
     public static void post(Event event) {
         Map<Class<?>, Listener[]>[] snap = index;
         if (snap == null) return;

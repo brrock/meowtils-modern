@@ -23,7 +23,10 @@ public final class NotificationManager {
 
     public static void show(String title, String message, Type type, long time) { show(title, 7, message, 5, type, time); }
     public static void show(String title, float titleScale, String message, float messageScale, Type type, long time) {
-        active = new Notification(title, message, Objects.requireNonNull(type), System.currentTimeMillis(), time, titleScale, messageScale);
+        var event = new wtf.tatp.meowtils.event.NotificationEvent(title, message, Objects.requireNonNull(type), time);
+        wtf.tatp.meowtils.event.api.EventManager.post(event);
+        if (event.isCancelled()) return;
+        active = new Notification(title, message, type, System.currentTimeMillis(), time, titleScale, messageScale);
     }
     public static boolean isDisplaying() {
         Notification notification = active;

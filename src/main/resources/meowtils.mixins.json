@@ -40,7 +40,9 @@
     "FakeAutoblockMixin",
     "EquipmentLayerDyeMixin",
     "ItemDyeMixin",
-    "ItemHighlightDropMixin"
+    "ItemHighlightDropMixin",
+    "ExtensionGuiBlurMixin",
+    "ExtensionGuiRenderStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

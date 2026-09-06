@@ -200,6 +200,7 @@ nav:
   - Extensions:
       - Introduction: extensions/introduction.md
       - How To Setup: extensions/setup.md
+      - Examples: extensions/examples.md
       - Limitations: extensions/limitations.md
       - Entrypoint: extensions/entrypoint.md
       - Events:
@@ -220,6 +221,7 @@ nav:
           - Render Game Overlay: extensions/events/rendergameoverlayevent.md
           - Render World Last: extensions/events/renderworldlastevent.md
           - Render String: extensions/events/renderstringevent.md
+          - Notification: extensions/events/notificationevent.md
           - Render Player: extensions/events/renderplayerevent.md
           - Movement Input Update: extensions/events/movementinputupdateevent.md
       - Basic:
@@ -229,6 +231,7 @@ nav:
           - Prefix: extensions/basic/prefix.md
       - Render:
           - HUD Text: extensions/render/hud-text.md
+          - Custom UI: extensions/render/custom-ui.md
           - Entity ESP: extensions/render/entity-esp.md
           #- Block ESP: extensions/render/block-esp.md
           - Slot Background: extensions/render/slot-background.md

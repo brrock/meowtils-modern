@@ -57,3 +57,4 @@ The time is in milliseconds and determine how long the notification will be visi
 ``` java
 NotificationManager.show("Player Warning", "Player is invisible!", NotificationManager.Type.ALERT, 1500);
 ```
+To replace the stock overlay, subscribe to [NotificationEvent](../events/notificationevent.md).

@@ -42,14 +42,21 @@ public final class ExtensionManager {
     public static void tick() {}
 
     public static synchronized void shutdown() {
-        for (Object listener : extensionListeners) EventManager.unregister(listener);
+        for (Object listener : extensionListeners) {
+            EventManager.unregister(listener);
+            if (listener instanceof AutoCloseable closeable) try { closeable.close(); }
+            catch (Exception error) { System.err.println("Meowtils extension cleanup failed: " + error); }
+        }
         for (Module module : extensionModules) {
             try { module.setState(false); } catch (Throwable ignored) {}
             ModuleManager.unregister(module);
         }
         extensionListeners.clear();
         extensionModules.clear();
-        for (URLClassLoader loader : openLoaders) try { loader.close(); } catch (IOException ignored) {}
+        for (URLClassLoader loader : openLoaders) {
+            wtf.tatp.meowtils.extension.render.DynamicTexture.releaseLoader(loader);
+            try { loader.close(); } catch (IOException ignored) {}
+        }
         openLoaders.clear();
     }
 

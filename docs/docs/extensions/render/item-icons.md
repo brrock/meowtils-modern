@@ -1,29 +1,21 @@
-# **Render Item Icon**
+# Render item icons
 
-!!! Note
+Use `GuiGraphicsExtractor.item(...)` in `RenderGameOverlayEvent`. Minecraft renders the current item model and lighting.
 
-    When rendering an icon on screen you should use [RenderGameOverlayEvent](../events/rendergameoverlayevent.md).
-
-``` java
-Render.renderItemIcon(ItemStack stack, float x, float y, float scale)
-```
-
-This will render an item icon on your screen.
-
-## Example
-
-!!! Tip
-
-    You should check **Minecraft.getMinecraft().currentScreen** to limit rendering your item so it only shows up when you want it to, like in the example below which will only render the item when no GUI is open.
-
-``` java
+```java
 @EventTarget
-public void onRenderGameOverlay(RenderGameOverlayEvent event) {
-    if (mc.theWorld == null) return;
-    if (mc.currentScreen != null) return;
-
-    final ItemStack itemStack = new ItemStack(Items.diamond_sword);
-
-    Render.renderItemIcon(itemStack, 10, 10, 1);
+public void onHud(RenderGameOverlayEvent event) {
+    if (mc.level == null || mc.gui.screen() != null) return;
+    var graphics = event.getGraphics();
+    graphics.pose().pushMatrix();
+    try {
+        graphics.pose().translate(10, 10);
+        graphics.pose().scale(0.8f, 0.8f);
+        graphics.item(new ItemStack(Items.DIAMOND_SWORD), 0, 0);
+    } finally {
+        graphics.pose().popMatrix();
+    }
 }
 ```
+
+The item occupies 16 × 16 GUI pixels before scaling. See [BedPlates](../examples.md) for projected, distance-scaled item plates. The old no-graphics `Render.renderItemIcon(...)` API is not used on 26.2.

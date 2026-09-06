@@ -23,23 +23,15 @@ public abstract class FontMixin {
 
     @ModifyVariable(method = "prepareText(Lnet/minecraft/util/FormattedCharSequence;FFIZZI)Lnet/minecraft/client/gui/Font$PreparedText;", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private FormattedCharSequence meowtils$prepareSequence(FormattedCharSequence sequence) {
-        return AntiObfuscate.stripPrepared(sequence);
+        return wtf.tatp.meowtils.util.RenderTextHooks.apply(AntiObfuscate.stripPrepared(sequence));
     }
 
     @ModifyVariable(method = "prepare8xTextOutline(Lnet/minecraft/util/FormattedCharSequence;FFI)Lnet/minecraft/client/gui/Font$PreparedText;", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private FormattedCharSequence meowtils$prepareOutline(FormattedCharSequence sequence) {
-        return AntiObfuscate.stripPrepared(sequence);
+        return wtf.tatp.meowtils.util.RenderTextHooks.apply(AntiObfuscate.stripPrepared(sequence));
     }
 
     private static String applyStringHook(String string) {
-        if (string == null || string.isEmpty()) return string;
-        boolean obfuscated = AntiObfuscate.active() && string.indexOf('§') >= 0;
-        boolean rename = wtf.tatp.meowtils.module.hypixel.AccountHider.needsRename(string);
-        if (!obfuscated && !rename) return string;
-        if (obfuscated) string = AntiObfuscate.strip(string);
-        if (!rename) return string;
-        RenderStringEvent event = new RenderStringEvent(string);
-        EventManager.post(event);
-        return event.getString();
+        return wtf.tatp.meowtils.util.RenderTextHooks.apply(string);
     }
 }

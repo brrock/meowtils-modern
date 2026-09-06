@@ -33,3 +33,5 @@ One feature per archive is easier to debug. Several modules in one archive still
 A zip of `.class` files, same as a jar, with a different extension. Rename to `.jar` if a decompiler requires that suffix.
 
 A complete Gradle example lives in the repo at [`examples/hello-extension`](https://github.com/brrock/meowtils-modern/tree/main/examples/hello-extension).
+
+See [all example extensions](examples.md) for the four original-extension ports and [custom UI rendering](render/custom-ui.md) for the shared SDK.

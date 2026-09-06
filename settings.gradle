@@ -10,3 +10,15 @@ rootProject.name = "meowtils"
 
 include 'hello-extension'
 project(':hello-extension').projectDir = file('examples/hello-extension')
+
+include 'tenacity-gui'
+project(':tenacity-gui').projectDir = file('examples/tenacity-gui')
+
+include 'notifications'
+project(':notifications').projectDir = file('examples/notifications')
+
+include 'bed-plates'
+project(':bed-plates').projectDir = file('examples/bed-plates')
+
+include 'stats-faker'
+project(':stats-faker').projectDir = file('examples/stats-faker')

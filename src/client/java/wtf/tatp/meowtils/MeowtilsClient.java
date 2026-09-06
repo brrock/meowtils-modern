@@ -73,6 +73,8 @@ public final class MeowtilsClient implements ClientModInitializer {
             wtf.tatp.meowtils.MeowtilsData.ensure();
             ConfigManager.save();
             ExtensionManager.shutdown();
+            wtf.tatp.meowtils.extension.render.DynamicTexture.closeAll();
+            wtf.tatp.meowtils.extension.render.Blur.close();
         });
         ClientTickEvents.END_CLIENT_TICK.register(ignored -> {
             EventManager.post(new ClientTickEvent(client, ClientTickEvent.Phase.PRE));

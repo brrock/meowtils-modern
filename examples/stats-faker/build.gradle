@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 25
+    options.encoding = 'UTF-8'
+    dependsOn rootProject.tasks.named('compileJava')
+}
+
+sourceSets.main.compileClasspath += rootProject.sourceSets.main.output
+sourceSets.main.compileClasspath += rootProject.sourceSets.main.compileClasspath
+
+tasks.register('meowtilsArchive', Jar) {
+    archiveFileName = 'stats-faker.meowtils'
+    from sourceSets.main.output
+}
+
+tasks.named('build') {
+    dependsOn 'meowtilsArchive'
+}
+

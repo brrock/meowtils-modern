@@ -32,7 +32,9 @@ Copy it to `<minecraft>/meowtils/extensions/` and run `/reload`.
 
 Copy the example folder, change `main` in `src/main/resources/META-INF/meowtils.extension`, and keep `public static void init()`.
 
-`compileOnly` the parent project so you get Meowtils + Minecraft 26.2 + Fabric API on the compile classpath. Do not shade those into the archive.
+The example's `build.gradle` adds `rootProject.sourceSets.main.output` and `rootProject.sourceSets.main.compileClasspath` to its compile classpath. This includes Meowtils, Minecraft 26.2 and Fabric. Its archive includes only the extension's own `sourceSets.main.output`.
+
+Do not shade Minecraft, Fabric or `wtf.tatp.meowtils.extension.render` into the archive. The [shared UI support](render/custom-ui.md) is part of the base mod. [Other examples](examples.md) use exactly this layout.
 
 ```properties
 main=example.HelloExtension
