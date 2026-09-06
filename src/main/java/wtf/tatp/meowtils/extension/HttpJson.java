@@ -8,13 +8,17 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /** Async JSON helper for extensions such as Stats; never blocks the client thread. */
 public final class HttpJson {
-    private static final HttpClient CLIENT = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(8)).build();
+    private static final HttpClient CLIENT = HttpClient.newBuilder()
+            .followRedirects(HttpClient.Redirect.NORMAL)
+            .connectTimeout(Duration.ofSeconds(8))
+            .build();
     private HttpJson() {}
 
     public static CompletableFuture<JsonObject> get(URI uri, Map<String, String> headers) {
@@ -35,9 +39,18 @@ public final class HttpJson {
         }
         HttpRequest.Builder request = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(60)).GET();
         headers.forEach(request::header);
-        return CLIENT.sendAsync(request.build(), HttpResponse.BodyHandlers.ofFile(dest))
+        return CLIENT.sendAsync(request.build(), HttpResponse.BodyHandlers.ofInputStream())
                 .thenApply(response -> {
-                    if (response.statusCode() / 100 != 2) throw new IllegalStateException("HTTP " + response.statusCode() + " from " + uri);
+                    try (var body = response.body()) {
+                        if (response.statusCode() / 100 != 2) {
+                            throw new IllegalStateException("HTTP " + response.statusCode() + " from " + uri);
+                        }
+                        Files.copy(body, dest, StandardCopyOption.REPLACE_EXISTING);
+                    } catch (RuntimeException exception) {
+                        throw exception;
+                    } catch (Exception exception) {
+                        throw new IllegalStateException("Failed to write " + dest, exception);
+                    }
                     return dest;
                 });
     }

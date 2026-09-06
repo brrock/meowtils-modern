@@ -74,9 +74,11 @@ public class Notification {
       CustomFont titleFont = Fonts.tenacityBoldFont22;
       CustomFont descFont = Fonts.tenacityFont18;
       String glyph = this.getNotificationType().getIcon();
-      icon.drawString(glyph, x + 5.0F, y + Pixels.offset(icon.getMiddleOfBox(height) + 1.0F), notificationColor);
-      float textX = x + 10.0F + Pixels.offset(icon.getStringWidth(glyph));
-      titleFont.drawString(this.getTitle(), textX, y + 4.0F, textColor);
-      descFont.drawString(this.getDescription(), textX, y + 7.0F + titleFont.getHeight(), textColor);
+      float iconX = Pixels.snap(x + 5.0F);
+      float iconY = Pixels.snap(y + Pixels.offset(icon.getMiddleOfBox(height) + 1.0F));
+      icon.drawString(glyph, iconX, iconY, notificationColor);
+      float textX = Pixels.snap(x + 10.0F + Pixels.offset(icon.getStringWidth(glyph)));
+      titleFont.drawString(this.getTitle(), textX, Pixels.snap(y + 4.0F), textColor);
+      descFont.drawString(this.getDescription(), textX, Pixels.snap(y + 7.0F + titleFont.getHeight()), textColor);
    }
 }

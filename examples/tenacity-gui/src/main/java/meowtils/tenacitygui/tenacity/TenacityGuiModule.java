@@ -35,7 +35,7 @@ public class TenacityGuiModule extends Extension {
    @Config
    public float clickHeight = 200.0F;
    @Config
-   public boolean rescale = true;
+   public boolean rescale = false;
    @Config
    public int color1R = 97;
    @Config

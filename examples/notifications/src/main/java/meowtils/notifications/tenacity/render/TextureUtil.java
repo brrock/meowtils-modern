@@ -18,6 +18,15 @@ import wtf.tatp.meowtils.Meowtils;
 public class TextureUtil {
    private static final String TEXTURE_DIR = "/meowtils/notifications/textures/";
    private static final Map<String, DynamicTexture> cache = new HashMap<>();
+   private static final int GL_TEXTURE_2D = 3553;
+   private static final int GL_TEXTURE_MIN_FILTER = 10241;
+   private static final int GL_TEXTURE_MAG_FILTER = 10240;
+   private static final int GL_LINEAR = 9729;
+
+   private static void useLinearFiltering() {
+      GL11.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+      GL11.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+   }
 
    public static int get(String name) {
       DynamicTexture texture = cache.get(name);
@@ -29,6 +38,10 @@ public class TextureUtil {
             is = ExtensionResources.open("/meowtils/notifications/textures/" + name + ".png");
             if (is != null) {
                BufferedImage image = ImageIO.read(is);
+               if (image == null) {
+                  Meowtils.error("Tenacity Notifications could not decode texture " + name + ".png");
+                  return -1;
+               }
                texture = new DynamicTexture(image);
                cache.put(name, texture);
                return texture.func_110552_b();
@@ -71,6 +84,10 @@ public class TextureUtil {
             is = ExtensionResources.open("/meowtils/notifications/textures/" + name + ".png");
             if (is != null) {
                BufferedImage source = ImageIO.read(is);
+               if (source == null) {
+                  Meowtils.error("Tenacity Notifications could not decode texture " + name + ".png");
+                  return -1;
+               }
                BufferedImage out = new BufferedImage(source.getWidth(), source.getHeight(), 2);
 
                for (int y = 0; y < source.getHeight(); y++) {
@@ -154,8 +171,7 @@ public class TextureUtil {
          GlStateManager.func_179138_g(OpenGlHelper.field_77478_a);
          GlStateManager.func_179098_w();
          GlStateManager.func_179144_i(id);
-         GL11.glTexParameteri(3553, 10241, 9729);
-         GL11.glTexParameteri(3553, 10240, 9729);
+         useLinearFiltering();
          GL11.glTexParameteri(3553, 10242, 33071);
          GL11.glTexParameteri(3553, 10243, 33071);
          float[] dx = new float[]{x, x + dl, x + w - dr, x + w};
@@ -194,6 +210,7 @@ public class TextureUtil {
          GlStateManager.func_179138_g(OpenGlHelper.field_77478_a);
          GlStateManager.func_179098_w();
          GlStateManager.func_179144_i(id);
+         useLinearFiltering();
          GL11.glBegin(7);
          GL11.glTexCoord2f(0.0F, 0.0F);
          GL11.glVertex2f(x, y);
@@ -214,8 +231,7 @@ public class TextureUtil {
       GlStateManager.func_179138_g(OpenGlHelper.field_77478_a);
       GlStateManager.func_179098_w();
       wtf.tatp.meowtils.extension.render.GL11.bind(location);
-      GL11.glTexParameteri(3553, 10241, 9729);
-      GL11.glTexParameteri(3553, 10240, 9729);
+      useLinearFiltering();
       GL11.glBegin(7);
       GL11.glTexCoord2f(0.0F, 0.0F);
       GL11.glVertex2f(x, y);

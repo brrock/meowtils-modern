@@ -41,7 +41,7 @@ public class TenacityClickGUI extends Screen {
    public static boolean gradient;
    private static final Identifier BLUR_SHADER = Identifier.fromNamespaceAndPath("minecraft", "shaders/post/blur.json");
    private boolean blurActive;
-   private int previousGuiScale = -1;
+   private static int savedGuiScale = -1;
    private int eventButton = -1;
    private long lastMouseEvent;
    private static final int OFFSCREEN = -1073741824;
@@ -224,12 +224,22 @@ public class TenacityClickGUI extends Screen {
    }
 
    private void applyRescale() {
-      TenacityGuiModule settings=TenacityGuiModule.get();
-      if(settings!=null && settings.rescale && previousGuiScale==-1 && minecraft.options.guiScale().get()!=2){previousGuiScale=minecraft.options.guiScale().get();minecraft.options.guiScale().set(2);minecraft.resizeGui();}
+      TenacityGuiModule settings = TenacityGuiModule.get();
+      if (settings != null && settings.rescale && savedGuiScale == -1 && minecraft.options.guiScale().get() != 2) {
+         savedGuiScale = minecraft.options.guiScale().get();
+         minecraft.options.guiScale().set(2);
+         minecraft.resizeGui();
+      }
    }
 
-   private void restoreGuiScale() {
-      if(previousGuiScale!=-1){int previous=previousGuiScale;previousGuiScale=-1;minecraft.options.guiScale().set(previous);minecraft.resizeGui();}
+   public static void restoreGuiScale() {
+      if (savedGuiScale != -1) {
+         int previous = savedGuiScale;
+         savedGuiScale = -1;
+         Minecraft mc = Minecraft.getInstance();
+         mc.options.guiScale().set(previous);
+         mc.resizeGui();
+      }
    }
 
    private void applyBlur() {
@@ -244,7 +254,7 @@ public class TenacityClickGUI extends Screen {
       Keyboard.enableRepeatEvents(false);
       MCategory.savePositions();
       TenacityConfig.forceSave();
-      this.restoreGuiScale();
+      TenacityClickGUI.restoreGuiScale();
       this.clearBlur();
    }
    @Override public void extractRenderState(GuiGraphicsExtractor graphics,int mouseX,int mouseY,float delta){

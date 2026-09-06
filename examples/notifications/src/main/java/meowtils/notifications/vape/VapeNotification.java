@@ -1,6 +1,7 @@
 package meowtils.notifications.vape;
 
 import java.awt.Color;
+import meowtils.notifications.tenacity.Pixels;
 import meowtils.notifications.tenacity.font.CustomFont;
 import meowtils.notifications.tenacity.font.Fonts;
 import meowtils.notifications.tenacity.render.RenderUtil;
@@ -108,8 +109,8 @@ public class VapeNotification {
          this.expiresAt = System.currentTimeMillis() + this.durationMillis;
       }
 
-      float x = (float)(this.currentX + anchorX);
-      float y = (float)(this.currentY + anchorY);
+      float x = Pixels.snap((float)(this.currentX + anchorX));
+      float y = Pixels.snap((float)(this.currentY + anchorY));
       float width = (float)this.width;
       this.blur.render(x, y, width + 3.5F, 37.5F, 10.0F, 3.5F, scale);
       if (panelTexture == -1) {

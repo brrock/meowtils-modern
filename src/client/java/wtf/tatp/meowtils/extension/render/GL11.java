@@ -9,8 +9,8 @@ import com.mojang.blaze3d.textures.FilterMode;
 public final class GL11 {
     private static final List<Draw.Point> points=new ArrayList<>();
     private static int mode,color=-1; private static float u,v,lineWidth=1;
-    private static boolean textured=true,linear=true; private static Identifier texture;
-    public static void reset(){points.clear();color=-1;texture=null;textured=true;}
+    private static boolean textured=true,linear=false; private static Identifier texture;
+    public static void reset(){points.clear();color=-1;texture=null;textured=true;linear=false;}
     public static Identifier boundTexture(){return texture;}
     public static void bind(Identifier id){texture=id;}
     public static void glBindTexture(int target,int id){bind(DynamicTexture.identifier(id));}
@@ -40,7 +40,9 @@ public final class GL11 {
     public static void glDisable(int state){if(state==3553)textured=false;}
     public static boolean glIsEnabled(int state){return state==3089&&Draw.g().scissorStack.peek()!=null;}
     public static void glLineWidth(float width){lineWidth=width;}
-    public static void glTexParameteri(int target,int parameter,int value){if(parameter==10241)linear=value==9729;}
+    public static void glTexParameteri(int target,int parameter,int value){
+        if(parameter==10240||parameter==10241)linear=value==9729;
+    }
     // Blend, alpha and culling are properties of the modern GUI pipelines.
     public static void glBlendFunc(int a,int b){}
     public static void glHint(int a,int b){}

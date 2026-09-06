@@ -13,8 +13,6 @@ import java.util.Map.Entry;
 import wtf.tatp.meowtils.config.Config;
 import wtf.tatp.meowtils.event.ClientTickEvent;
 import wtf.tatp.meowtils.event.RenderGameOverlayEvent;
-import wtf.tatp.meowtils.event.RenderTickEvent;
-import wtf.tatp.meowtils.event.RenderWorldLastEvent;
 import wtf.tatp.meowtils.event.WorldEvent;
 import wtf.tatp.meowtils.event.ClientTickEvent.Phase;
 import wtf.tatp.meowtils.event.WorldEvent.Type;
@@ -39,7 +37,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.resources.Identifier;
 import wtf.tatp.meowtils.extension.render.Draw;
-import wtf.tatp.meowtils.extension.render.Shapes;
+import wtf.tatp.meowtils.extension.render.GL11;
+import wtf.tatp.meowtils.extension.render.GlStateManager;
 import wtf.tatp.meowtils.module.render.WorldOverlay;
 import org.lwjgl.glfw.GLFW;
 
@@ -151,12 +150,8 @@ public class BedPlates extends Extension {
    private final Set<String> searchedBlocks = new HashSet<>();
    private final Map<String, ItemStack> stackCache = new HashMap<>();
    private final Set<Integer> yLevels = new HashSet<>();
-   private final List<BedPlates.PlateRenderData> projectedPlates = new ArrayList<>();
    private boolean display = true;
    private boolean lastPressed;
-   private int renderFrameId;
-   private int lastProjectedFrameId = Integer.MIN_VALUE;
-   private int lastOverlayFrameId = Integer.MIN_VALUE;
 
    public BedPlates() {
       super("BedPlates", "curxxed");
@@ -182,9 +177,8 @@ public class BedPlates extends Extension {
                int ticks = this.mc.player.tickCount;
                if (ticks % 20 == 0) {
                   this.searchForBeds();
+                  this.importKnownBeds();
                }
-
-               this.importKnownBeds();
 
                if (ticks % 3 == 0) {
                   this.findYLevels();
@@ -201,33 +195,48 @@ public class BedPlates extends Extension {
    }
 
    @EventTarget
-   public void onRenderWorldLast(RenderWorldLastEvent event) {
-
-   }
-
-   @EventTarget
-   public void onRenderTick(RenderTickEvent event) {
-      if (event.getPhase() == wtf.tatp.meowtils.event.RenderTickEvent.Phase.PRE) {
-         this.renderFrameId++;
-      }
-   }
-
-   @EventTarget
    public void onRenderGameOverlay(RenderGameOverlayEvent event) {
-      if(mc.player==null || mc.level==null || (bedwarsOnly && Bedwars.GAME.isNotActive() && Duels.BEDWARS.isNotActive()) || !updateDisplayState())return;
+      if (this.mc.player == null || this.mc.level == null) {
+         return;
+      }
+      if (this.bedwarsOnly && Bedwars.GAME.isNotActive() && Duels.BEDWARS.isNotActive()) {
+         return;
+      }
+      if (!this.updateDisplayState() || this.bedPositions.isEmpty()) {
+         return;
+      }
       Draw.begin(event.getGraphics());
       try {
-         float[] point=new float[2];
-         for(BedData bed:bedPositions.values()){
-            if(!bed.visible)continue;
-            Map<String,Integer> layers=bed.layers==null||bed.layers.isEmpty()?Map.of("white_bed",1):bed.layers;
-            Vec3 center=getBedCenter(bed.position1,bed.position2).add(0,yOffset,0);
-            double distance=mc.gameRenderer.mainCamera().position().distanceTo(center);
-            if(distance>renderDistance || !WorldOverlay.project(center.x,center.y,center.z,event.getGraphics().guiWidth(),event.getGraphics().guiHeight(),point))continue;
-            float currentScale=autoScale?Math.max(.3f,scale*(1-(float)(distance/renderDistance))):scale;
-            renderPlate(new PlateRenderData(point[0],point[1],currentScale,layers));
+         event.getGraphics().nextStratum();
+         GlStateManager.func_179094_E();
+         GlStateManager.func_179147_l();
+         GlStateManager.func_179140_f();
+         GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+         try {
+            float[] point = new float[2];
+            int width = event.getGraphics().guiWidth();
+            int height = event.getGraphics().guiHeight();
+            Vec3 camera = this.mc.gameRenderer.mainCamera().position();
+            for (BedPlates.BedData bed : this.bedPositions.values()) {
+               if (!bed.visible || bed.layers == null || bed.layers.isEmpty()) {
+                  continue;
+               }
+               Vec3 center = this.getBedCenter(bed.position1, bed.position2).add(0.0, this.yOffset, 0.0);
+               double distance = camera.distanceTo(center);
+               if (distance > this.renderDistance || !WorldOverlay.project(center.x, center.y, center.z, width, height, point)) {
+                  continue;
+               }
+               float currentScale = this.autoScale ? Math.max(0.3F, this.scale * (1.0F - (float)(distance / this.renderDistance))) : this.scale;
+               this.renderPlate(new BedPlates.PlateRenderData(point[0], point[1], currentScale, bed.layers));
+            }
+         } finally {
+            GlStateManager.func_179084_k();
+            GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+            GlStateManager.func_179121_F();
          }
-      } finally { Draw.end(); }
+      } finally {
+         Draw.end();
+      }
    }
 
    @EventTarget
@@ -253,10 +262,7 @@ public class BedPlates extends Extension {
       this.bedPositions.clear();
       this.searchedBlocks.clear();
       this.stackCache.clear();
-      this.projectedPlates.clear();
       this.yLevels.clear();
-      this.lastProjectedFrameId = Integer.MIN_VALUE;
-      this.lastOverlayFrameId = Integer.MIN_VALUE;
    }
 
    private boolean updateDisplayState() {
@@ -315,8 +321,15 @@ public class BedPlates extends Extension {
             String layer = layers.get(i);
             ItemStack stack = this.getStackFromName(layer);
             float itemX = startX + i * boxSize;
-            var g=Draw.g();g.pose().pushMatrix();
-            try {g.pose().translate(itemX+itemPadding/2,startY+itemPadding/2);g.pose().scale(plate.scale,plate.scale);g.item(stack,0,0);}finally{g.pose().popMatrix();}
+            var graphics = Draw.g();
+            graphics.pose().pushMatrix();
+            try {
+               graphics.pose().translate(itemX + itemPadding / 2.0F, startY + itemPadding / 2.0F);
+               graphics.pose().scale(plate.scale, plate.scale);
+               graphics.item(stack, 0, 0);
+            } finally {
+               graphics.pose().popMatrix();
+            }
          }
       }
    }
@@ -396,6 +409,7 @@ public class BedPlates extends Extension {
          if (this.mc.player != null && this.mc.level != null) {
             Vec3 playerPos = this.mc.player.position();
             long now = System.currentTimeMillis();
+            int layerUpdates = 0;
 
             for (BedPlates.BedData bedData : this.bedPositions.values()) {
                bedData.lastDistance = bedData.distance;
@@ -403,9 +417,10 @@ public class BedPlates extends Extension {
                bedData.visible = this.isBedVisible(bedData.position1, bedData.position2);
                if (bedData.visible) {
                   int delay = this.getDelay(bedData.distance);
-                  if (now > bedData.lastCheck + delay) {
+                  if (now > bedData.lastCheck + delay && layerUpdates < 1) {
                      bedData.layers = this.getBedDefenseLayers(bedData.position1, bedData.position2);
                      bedData.lastCheck = now;
+                     layerUpdates++;
                   }
                }
             }
@@ -427,10 +442,12 @@ public class BedPlates extends Extension {
       if (this.mc.player != null && this.mc.level != null) {
          List<Player> players = new ArrayList<>(this.mc.level.players());
          Set<Integer> levels = new HashSet<>(this.yLevels);
-         for (Player player : players) {
-            int y = player.blockPosition().getY();
-            for (int dy = -24; dy <= 4; dy++) {
-               levels.add(y + dy);
+         if (levels.isEmpty()) {
+            for (Player player : players) {
+               int y = player.blockPosition().getY();
+               levels.add(y - 1);
+               levels.add(y);
+               levels.add(y + 1);
             }
          }
 
@@ -662,7 +679,32 @@ public class BedPlates extends Extension {
    }
 
    private void drawRoundedRect(float x, float y, float x2, float y2, float radius, int color) {
-      Shapes.round(x,y,x2-x,y2-y,radius,color);
+      float alpha = (color >> 24 & 0xFF) / 255.0F;
+      float red = (color >> 16 & 0xFF) / 255.0F;
+      float green = (color >> 8 & 0xFF) / 255.0F;
+      float blue = (color & 0xFF) / 255.0F;
+      GL11.glDisable(3553);
+      GL11.glColor4f(red, green, blue, alpha);
+      GL11.glBegin(9);
+
+      for (int i = 0; i <= 90; i += 3) {
+         GL11.glVertex2d(x + radius + Math.sin(i * Math.PI / 180.0) * radius * -1.0, y + radius + Math.cos(i * Math.PI / 180.0) * radius * -1.0);
+      }
+
+      for (int i = 90; i <= 180; i += 3) {
+         GL11.glVertex2d(x + radius + Math.sin(i * Math.PI / 180.0) * radius * -1.0, y2 - radius + Math.cos(i * Math.PI / 180.0) * radius * -1.0);
+      }
+
+      for (int i = 0; i <= 90; i += 3) {
+         GL11.glVertex2d(x2 - radius + Math.sin(i * Math.PI / 180.0) * radius, y2 - radius + Math.cos(i * Math.PI / 180.0) * radius);
+      }
+
+      for (int i = 90; i <= 180; i += 3) {
+         GL11.glVertex2d(x2 - radius + Math.sin(i * Math.PI / 180.0) * radius, y + radius + Math.cos(i * Math.PI / 180.0) * radius);
+      }
+
+      GL11.glEnd();
+      GL11.glEnable(3553);
    }
 
    private int alphaFromPercent(float percent) {

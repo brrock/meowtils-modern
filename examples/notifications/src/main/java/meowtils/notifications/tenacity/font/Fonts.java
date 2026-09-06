@@ -26,6 +26,27 @@ public final class Fonts {
          proxima14 = proxima.size(14);
          proximaBold14 = proxima.boldSize(14);
          iconFont35 = FontUtil.FontType.ICON.size(35);
+         if (tenacityFont18 != null) {
+            tenacityFont18.setSmooth(true);
+         }
+         if (tenacityFont22 != null) {
+            tenacityFont22.setSmooth(true);
+         }
+         if (tenacityBoldFont18 != null) {
+            tenacityBoldFont18.setSmooth(true);
+         }
+         if (tenacityBoldFont22 != null) {
+            tenacityBoldFont22.setSmooth(true);
+         }
+         if (iconFont35 != null) {
+            iconFont35.setSmooth(true);
+         }
+         if (proxima14 != null) {
+            proxima14.setSmooth(true);
+         }
+         if (proximaBold14 != null) {
+            proximaBold14.setSmooth(true);
+         }
       }
    }
 

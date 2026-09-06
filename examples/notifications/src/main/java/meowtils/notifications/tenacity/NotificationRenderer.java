@@ -74,7 +74,7 @@ public final class NotificationRenderer {
             int notificationWidth = notification.getMeasuredWidth();
             float x = sr.func_78326_a() - (notificationWidth + 5) * progress;
             float y = sr.func_78328_b() - (yOffset + 18.0F + settings.offset + notificationHeight + chatOffset);
-            notification.drawDefault(x, y, notificationWidth, notificationHeight, progress);
+            notification.drawDefault(Pixels.snap(x), Pixels.snap(y), notificationWidth, notificationHeight, progress);
             yOffset += (notificationHeight + actualOffset) * progress;
          }
       }
