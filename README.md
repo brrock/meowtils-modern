@@ -119,7 +119,7 @@ Publishing is a manual GitHub Action on [brrock/meowtils-modern](https://github.
    - **patch** `0.0.0` → `0.0.1`
    - **minor** `0.0.0` → `0.1.0`
    - **major** `0.0.0` → `1.0.0`
-3. The workflow updates `mod_version` in `gradle.properties`, commits, tags `v<version>`, builds, and publishes the GitHub release with both jars.
+3. The workflow updates `mod_version` in `gradle.properties`, commits, tags `v<version>`, builds the mod and example extensions, and publishes the GitHub release with both jars plus the `.meowtils` archives.
 
 Clients with Auto-Updates on pick that release up on the next join.
 

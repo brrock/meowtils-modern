@@ -21,7 +21,7 @@ From the repository root with JDK 25:
   :bed-plates:meowtilsArchive :stats-faker:meowtilsArchive
 ```
 
-Each output is `examples/<project>/build/libs/<project>.meowtils`. `./gradlew build` also builds every example.
+Each output is `examples/<project>/build/libs/<project>.meowtils`. `./gradlew build` also builds every example. GitHub releases attach the same archives next to the mod jar.
 
 ## Install
 

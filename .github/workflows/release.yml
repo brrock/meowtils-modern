@@ -63,7 +63,38 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Test and build
-        run: ./gradlew test build autoupdateJar --no-daemon
+        run: |
+          ./gradlew test build autoupdateJar \
+            :hello-extension:meowtilsArchive \
+            :tenacity-gui:meowtilsArchive \
+            :notifications:meowtilsArchive \
+            :bed-plates:meowtilsArchive \
+            :stats-faker:meowtilsArchive \
+            --no-daemon
+
+      - name: Collect release artifacts
+        run: |
+          set -euo pipefail
+          version="${{ steps.bump.outputs.version }}"
+          mkdir -p dist
+          cp "build/libs/meowtils-${version}.jar" dist/
+          cp build/libs/MeowtilsAutoUpdate.jar dist/
+          extensions=(hello-extension tenacity-gui notifications bed-plates stats-faker)
+          for name in "${extensions[@]}"; do
+            src="examples/${name}/build/libs/${name}.meowtils"
+            if [[ ! -s "$src" ]]; then
+              echo "Missing built extension: $src" >&2
+              exit 1
+            fi
+            cp "$src" dist/
+          done
+          ls -la dist
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: meowtils-${{ steps.bump.outputs.version }}
+          path: dist/*
 
       - name: Commit version and tag
         run: |
@@ -83,8 +114,30 @@ jobs:
         run: |
           set -euo pipefail
           version="${{ steps.bump.outputs.version }}"
+          cat > /tmp/release-notes.md <<EOF
+          Fabric client port of Meowtils for **Minecraft 26.2**.
+
+          ## Mod
+
+          - \`meowtils-${version}.jar\` — put this in your instance \`mods\` folder with Fabric Loader and Fabric API.
+          - \`MeowtilsAutoUpdate.jar\` — helper used by Auto-Updates. Do **not** put it in \`mods\`.
+
+          ## Example extensions
+
+          These \`.meowtils\` archives were built against this exact Meowtils version. After the first launch, copy any of them into \`<minecraft>/meowtils/extensions/\` and restart (or \`/reload\` if the base mod is already this build).
+
+          | File | What it is |
+          | --- | --- |
+          | \`hello-extension.meowtils\` | Starter example: settings, \`/hello\`, chat trigger, HUD |
+          | \`tenacity-gui.meowtils\` | Floating panels, themes, search, original widgets (enabled by default) |
+          | \`notifications.meowtils\` | Tenacity 5.0 and Vape V4 notification styles (enabled by default) |
+          | \`bed-plates.meowtils\` | Projected bed-defense item plates (disabled by default) |
+          | \`stats-faker.meowtils\` | Local Bedwars/network display changes (disabled by default) |
+
+          Use these only with this Meowtils jar. Open the Click GUI with **Right Shift**.
+          EOF
           gh release create "v${version}" \
             --title "Meowtils ${version}" \
+            --notes-file /tmp/release-notes.md \
             --generate-notes \
-            "build/libs/meowtils-${version}.jar" \
-            "build/libs/MeowtilsAutoUpdate.jar"
+            dist/*

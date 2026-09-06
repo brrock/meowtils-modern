@@ -23,6 +23,8 @@ Meowtils is a normal Fabric client mod. Drop the jar in `mods` once. Later versi
 
 You do not need `MeowtilsAutoUpdate.jar` in `mods`. Auto-update downloads that helper into `meowtils/auto_update/` when needed.
 
+The same release also has example `.meowtils` archives (`hello-extension`, `tenacity-gui`, `notifications`, `bed-plates`, `stats-faker`). After the first launch, copy any of them into `<minecraft>/meowtils/extensions/`. See [Example extensions](../extensions/examples.md).
+
 ## 3. Launch
 
 Launch the instance. Meowtils creates `<minecraft>/meowtils/` on first start.
